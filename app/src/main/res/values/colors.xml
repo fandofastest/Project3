@@ -10,5 +10,6 @@
     <color name="maincolour">#2F1937</color>
     <color name="merah">#FD4E74</color>
     <color name="grey">#BFBFBF</color>
+    <color name="textgrey">#B6B0B0</color>
 </resources>
 
