@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/maincolour"
     tools:context=".fragment.HomeFragment">
 
 
@@ -16,7 +15,7 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/nsbold"
         android:text="Trending Song For You"
-        android:textColor="@color/grey"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
