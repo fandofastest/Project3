@@ -13,9 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.project3.MainActivity;
 import com.example.project3.R;
+import com.example.project3.adapter.AlbumAdapter;
+import com.example.project3.adapter.PlaylistAdapter;
 import com.example.project3.adapter.SongAdapter;
+import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.model.AlbumModel;
+import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
 
 import java.util.ArrayList;
@@ -36,10 +40,16 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    RecyclerView rvrecent;
+    RecyclerView rvrecent,rvnewest,rvplaylist,rvAlbum;
     SongAdapter recentAdapter;
+    SongAdapterList newestAdapter;
+    PlaylistAdapter playlistAdapter;
+    AlbumAdapter albumAdapter;
     Context context;
     List<SongModel> listrecent = new ArrayList<>();
+    List<SongModel> listnewest = new ArrayList<>();
+    List<PLaylistModel> listplaylist = new ArrayList<>();
+    List<AlbumModel> listalbum = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -105,10 +115,60 @@ public class HomeFragment extends Fragment {
         rvrecent.setAdapter(recentAdapter);
         getRecent();
 
+
+
+        rvnewest=view.findViewById(R.id.rvnewest);
+        rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
+        rvnewest.setHasFixedSize(true);
+        //set data and list adapter
+        newestAdapter = new SongAdapterList(context, listnewest);
+        newestAdapter.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+
+            }
+
+            @Override
+            public void onMoreClick(SongModel position) {
+
+            }
+
+
+        });
+        rvnewest.setAdapter(newestAdapter);
+        getNewest();
+
+
+        rvplaylist=view.findViewById(R.id.rvplaylist);
+        rvplaylist.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
+        rvplaylist.setHasFixedSize(true);
+        //set data and list adapter
+        playlistAdapter = new PlaylistAdapter(context, listplaylist);
+        playlistAdapter.setOnItemClickListener((view1, obj, position) -> {
+
+
+        });
+        rvplaylist.setAdapter(playlistAdapter);
+        getPlaylist();
+
+
+        rvAlbum=view.findViewById(R.id.rvalbum);
+        rvAlbum.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
+        rvAlbum.setHasFixedSize(true);
+        //set data and list adapter
+        albumAdapter = new AlbumAdapter(context, listalbum);
+        albumAdapter.setOnItemClickListener((view1, obj, position) -> {
+
+
+        });
+        rvAlbum.setAdapter(albumAdapter);
+       getAlbum();
+
     }
 
     void getRecent(){
-        for (int i = 0; i <10 ; i++) {
+        for (int i = 0; i <100 ; i++) {
             SongModel songModel = new SongModel();
             songModel.setTitle("xxxxx");
             songModel.setArtist("artisty xxxx");
@@ -116,5 +176,33 @@ public class HomeFragment extends Fragment {
 
         }
         recentAdapter.notifyDataSetChanged();
+    }
+
+    void getNewest(){
+        for (int i = 0; i <100 ; i++) {
+            SongModel songModel = new SongModel();
+            songModel.setTitle("xxxxx");
+            songModel.setArtist("artisty xxxx");
+            listnewest.add(songModel);
+
+        }
+        newestAdapter.notifyDataSetChanged();
+    }
+    void getPlaylist(){
+        for (int i = 0; i <100 ; i++) {
+            PLaylistModel pLaylistModel = new PLaylistModel();
+            pLaylistModel.setName("xxxxx");
+            listplaylist.add(pLaylistModel);
+        }
+        playlistAdapter.notifyDataSetChanged();
+    }
+
+    void getAlbum(){
+        for (int i = 0; i <100 ; i++) {
+            AlbumModel albumModel = new AlbumModel();
+            albumModel.setAlbumName("xxxxx");
+            listalbum.add(albumModel);
+        }
+        albumAdapter.notifyDataSetChanged();
     }
 }

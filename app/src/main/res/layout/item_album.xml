@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainly"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/songimage"
+        android:layout_width="133sp"
+        android:layout_height="170sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/playlist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/albumimgnew" />
+
+    <TextView
+        android:id="@+id/playlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Album Name"
+        app:layout_constraintBottom_toTopOf="@+id/years"
+        app:layout_constraintEnd_toEndOf="@+id/songimage"
+        app:layout_constraintStart_toStartOf="@+id/songimage"
+        app:layout_constraintTop_toBottomOf="@+id/songimage" />
+
+    <TextView
+        android:id="@+id/totalplays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="56M PLays - "
+        android:textColor="@color/textgrey"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton6"
+        app:layout_constraintStart_toEndOf="@+id/imageButton5"
+        app:layout_constraintTop_toBottomOf="@+id/years" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:background="?selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/totalplays"
+        app:layout_constraintEnd_toStartOf="@+id/totalplays"
+        app:layout_constraintStart_toStartOf="@+id/songimage"
+        app:layout_constraintTop_toTopOf="@+id/totalplays"
+        app:srcCompat="@drawable/ic_headset" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/totalplays"
+        app:layout_constraintEnd_toStartOf="@+id/totalsong"
+        app:layout_constraintStart_toEndOf="@+id/totalplays"
+        app:layout_constraintTop_toTopOf="@+id/totalplays"
+        app:srcCompat="@drawable/ic_nada" />
+
+    <TextView
+        android:id="@+id/totalsong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="15 Songs"
+        android:textColor="@color/textgrey"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalplays"
+        app:layout_constraintEnd_toEndOf="@+id/songimage"
+        app:layout_constraintStart_toEndOf="@+id/imageButton6"
+        app:layout_constraintTop_toTopOf="@+id/totalplays" />
+
+    <TextView
+        android:id="@+id/years"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017"
+        android:textColor="@color/textgrey"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/totalplays"
+        app:layout_constraintEnd_toEndOf="@+id/playlist"
+        app:layout_constraintStart_toStartOf="@+id/playlist"
+        app:layout_constraintTop_toBottomOf="@+id/playlist" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="31sp"
+        android:layout_height="38sp"
+        android:background="@color/maincolour"
+        android:fontFamily="@font/nsbold"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="1"
+        android:textAlignment="gravity"
+        android:textColor="@color/textorange"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/songimage"
+        app:layout_constraintEnd_toEndOf="@+id/songimage"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toStartOf="@+id/songimage"
+        app:layout_constraintTop_toTopOf="@+id/songimage"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/artisimage"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/songimage"
+        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintStart_toStartOf="@+id/songimage"
+        app:layout_constraintTop_toTopOf="@+id/songimage"
+        app:layout_constraintVertical_bias="0.717"
+        app:srcCompat="@drawable/artisnew" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
