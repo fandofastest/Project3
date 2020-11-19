@@ -1,7 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView3"
+        android:layout_width="0dp"
+        android:layout_height="60sp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bgminipalyer" />
+
+    <ImageButton
+        android:id="@+id/morebutton"
+        android:layout_width="17sp"
+        android:layout_height="8sp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="8dp"
+        android:background="?selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
+        app:layout_constraintEnd_toStartOf="@+id/artistimage"
+        app:layout_constraintStart_toStartOf="@+id/imageFilterView3"
+        app:layout_constraintTop_toTopOf="@+id/artistimage"
+        app:srcCompat="@drawable/ic_arrow" />
+
+    <ImageView
+        android:id="@+id/artistimage"
+        android:layout_width="30sp"
+        android:layout_height="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterView3"
+        app:layout_constraintEnd_toStartOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/morebutton"
+        app:layout_constraintTop_toTopOf="@+id/imageFilterView3"
+        app:srcCompat="@drawable/artist" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="231dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/nsregular"
+        android:text="Acadian Driftwood"
+        android:textColor="@color/merah"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
+        app:layout_constraintStart_toEndOf="@+id/artistimage"
+        app:layout_constraintTop_toTopOf="@+id/artistimage" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
+        app:layout_constraintEnd_toStartOf="@+id/imageView8"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:srcCompat="@drawable/lirik" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_headsetred" />
+
+    <TextView
+        android:id="@+id/totalplays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nsregular"
+        android:text="17932 Plays"
+        android:textColor="@color/merah"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:text="05:43"
+        android:textColor="@color/merah"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/totalplays"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <ImageButton
+        android:id="@+id/playbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/favbutton"
+        app:layout_constraintEnd_toEndOf="@+id/imageFilterView3"
+        app:layout_constraintStart_toEndOf="@+id/favbutton"
+        app:layout_constraintTop_toTopOf="@+id/favbutton"
+        app:srcCompat="@drawable/ic_play" />
+
+    <ImageButton
+        android:id="@+id/favbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title"
+        app:layout_constraintTop_toTopOf="@+id/artistimage"
+        app:srcCompat="@drawable/ic_love" />
 </androidx.constraintlayout.widget.ConstraintLayout>
