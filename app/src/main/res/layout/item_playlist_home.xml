@@ -7,7 +7,8 @@
     android:layout_height="wrap_content">
 
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        app:riv_corner_radius="10sp"
         android:id="@+id/songimage"
         android:layout_width="133sp"
         android:layout_height="197sp"
@@ -25,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Daily Mix 1"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/totalplays"
         app:layout_constraintEnd_toEndOf="@+id/songimage"
         app:layout_constraintStart_toStartOf="@+id/songimage"

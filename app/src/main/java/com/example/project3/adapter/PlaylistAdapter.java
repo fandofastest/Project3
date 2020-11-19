@@ -76,6 +76,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
             view.playlistname.setText(obj.getName());
+            view.image.setImageResource(R.drawable.album);
 
             if (obj.getTotalsong() < 1 ){
                 view.songcount.setText(obj.getTotalsong() +" Song");

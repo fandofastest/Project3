@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageView3"
         android:layout_width="32sp"
         android:layout_height="32sp"
@@ -30,7 +30,9 @@
         app:layout_constraintEnd_toStartOf="@+id/titlesong"
         app:layout_constraintStart_toEndOf="@+id/no"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/artist" />
+        app:riv_corner_radius="4sp"
+        app:srcCompat="@drawable/artist"
+       />
 
     <TextView
         android:id="@+id/titlesong"

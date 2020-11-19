@@ -38,7 +38,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
-        public ImageView image;
+        public ImageView image,artist;
         public TextView artistname;
         public TextView albumname;
         public TextView years;
@@ -47,6 +47,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(v);
 
             image=v.findViewById(R.id.songimage);
+            artist=v.findViewById(R.id.artisimage);
             albumname=v.findViewById(R.id.playlist);
             itemlayout=v.findViewById(R.id.mainly);
             years=v.findViewById(R.id.years);
@@ -71,6 +72,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //                    .load(obj.getImageUrl())
 //                    .centerCrop()
 //                    .into(view.image);
+            view.image.setImageResource(R.drawable.albumimgnew);
+            view.artist.setImageResource(R.drawable.artisnew);
             view.albumname.setText(obj.getAlbumName());
             view.years.setText(obj.getYears());
             if (obj.getYears()==null){
