@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.example.project3.MainActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.AlbumAdapter;
 import com.example.project3.adapter.PlaylistAdapter;
@@ -50,6 +52,9 @@ public class HomeFragment extends Fragment {
     List<SongModel> listnewest = new ArrayList<>();
     List<PLaylistModel> listplaylist = new ArrayList<>();
     List<AlbumModel> listalbum = new ArrayList<>();
+
+
+    ImageButton buttonmoretrending ;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -93,6 +98,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initButton(view);
         rvrecent=view.findViewById(R.id.recyclerViewrecent);
         rvrecent.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
         rvrecent.setHasFixedSize(true);
@@ -167,6 +173,19 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+    void initButton(View view){
+        buttonmoretrending=view.findViewById(R.id.buttonmoretrending);
+
+
+
+
+        buttonmoretrending.setOnClickListener(v -> {
+            ((MainActivity) getActivity()).loadFragment(TrendingFragment.newInstance("",""),"");
+
+        });
+
+    }
     void getRecent(){
         for (int i = 0; i <100 ; i++) {
             SongModel songModel = new SongModel();

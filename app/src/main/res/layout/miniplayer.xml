@@ -8,7 +8,8 @@
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/imageFilterView3"
         android:layout_width="0dp"
-        android:layout_height="60sp"
+        android:layout_height="0dp"
+        android:foregroundGravity="center"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +23,8 @@
         android:id="@+id/morebutton"
         android:layout_width="17sp"
         android:layout_height="8sp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="?selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="@+id/artistimage"
         app:layout_constraintEnd_toStartOf="@+id/artistimage"
@@ -34,7 +35,10 @@
     <ImageView
         android:id="@+id/artistimage"
         android:layout_width="30sp"
-        android:layout_height="32sp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/imageFilterView3"
         app:layout_constraintEnd_toStartOf="@+id/title"
         app:layout_constraintStart_toEndOf="@+id/morebutton"
@@ -46,11 +50,11 @@
         android:layout_width="231dp"
         android:layout_height="21dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="22dp"
         android:fontFamily="@font/nsregular"
         android:text="Acadian Driftwood"
         android:textColor="@color/merah"
-        app:layout_constraintBottom_toTopOf="@+id/imageView7"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
         app:layout_constraintStart_toEndOf="@+id/artistimage"
         app:layout_constraintTop_toTopOf="@+id/artistimage" />
 
@@ -69,11 +73,12 @@
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/artistimage"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintHorizontal_bias="0.193"
         app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintTop_toTopOf="@+id/artistimage"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_headsetred" />
 
@@ -87,10 +92,10 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/artistimage"
         app:layout_constraintEnd_toEndOf="@+id/title"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintVertical_bias="0.444" />
 
     <TextView
         android:id="@+id/duration"
@@ -102,28 +107,34 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/artistimage"
         app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/totalplays"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.4" />
 
     <ImageButton
+
         android:id="@+id/playbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/favbutton"
+        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
         app:layout_constraintEnd_toEndOf="@+id/imageFilterView3"
         app:layout_constraintStart_toEndOf="@+id/favbutton"
-        app:layout_constraintTop_toTopOf="@+id/favbutton"
+        app:layout_constraintTop_toTopOf="@+id/artistimage"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_play" />
 
     <ImageButton
         android:id="@+id/favbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/artistimage"
+        app:layout_constraintBottom_toBottomOf="@+id/playbutton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
         app:layout_constraintStart_toEndOf="@+id/title"
-        app:layout_constraintTop_toTopOf="@+id/artistimage"
+        app:layout_constraintTop_toTopOf="@+id/playbutton"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_love" />
 </androidx.constraintlayout.widget.ConstraintLayout>

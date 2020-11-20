@@ -2,8 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="40sp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -145,7 +147,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/buttonmoretrending"
             android:layout_width="16sp"
             android:layout_height="16sp"
             android:background="?attr/selectableItemBackgroundBorderless"

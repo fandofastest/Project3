@@ -24,9 +24,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadFragment(HomeFragment.newInstance("",""));
         initToolbar();
         initbottomnavigation();
+        loadFragment(HomeFragment.newInstance("",""),"App Name");
+
     }
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean loadFragment(Fragment fragment) {
+    public boolean loadFragment(Fragment fragment,String toolbartitle) {
         if (fragment != null) {
+            titleToolbar.setText(toolbartitle);
             getSupportFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
                     .replace(R.id.frame, fragment)
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home:
-                    loadFragment(HomeFragment.newInstance("",""));
+                    loadFragment(HomeFragment.newInstance("",""),"App Name");
 //                    titleToolbar.setText(getString(R.string.app_name));
                     actionBar.setDisplayHomeAsUpEnabled(false);
                     return true;
