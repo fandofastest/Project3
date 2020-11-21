@@ -160,7 +160,7 @@
             app:srcCompat="@drawable/ic_rightarrow" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/newestmore"
             android:layout_width="16sp"
             android:layout_height="16sp"
             android:background="?attr/selectableItemBackgroundBorderless"

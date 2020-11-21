@@ -19,6 +19,7 @@
 
     </FrameLayout>
     <androidx.appcompat.widget.Toolbar
+        android:layout_marginTop="10sp"
         android:id="@+id/toolbar"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"

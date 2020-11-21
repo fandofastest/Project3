@@ -22,6 +22,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     int  selectedKey =-1;
     Context ctx;
     private OnItemClickListener mOnItemClickListener;
+    int layout;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -33,8 +34,9 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public SongAdapterList(Context context, List<SongModel> items) {
+    public SongAdapterList(Context context, List<SongModel> items,int layout) {
         this.items = items;
+        this.layout=layout;
         ctx = context;
     }
 
@@ -53,7 +55,6 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             songtitle=v.findViewById(R.id.artist);
             artistname=v.findViewById(R.id.titlesong);
             imageView=v.findViewById(R.id.imageView3);
-//            songactive=v.findViewById(R.id.songactive);
             lyt_parent=v.findViewById(R.id.mainly);
 
         }
@@ -62,7 +63,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song_list, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         vh = new OriginalViewHolder(v);
         return vh;
     }
@@ -70,10 +71,19 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+
         SongModel obj = items.get(position);
         if (holder instanceof OriginalViewHolder) {
             final OriginalViewHolder view = (OriginalViewHolder) holder;
+            if (position==0){
+            view.lyt_parent.setPadding(0,100,0,0);
+            }
+            else {
+                view.lyt_parent.setPadding(0,0,0,0);
+
+            }
             view.imageView.setImageResource(R.drawable.artist);
+
 //            Glide
 //                    .with(ctx)
 //                    .load(obj.getImageurl())

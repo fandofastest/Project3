@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     List<AlbumModel> listalbum = new ArrayList<>();
 
 
-    ImageButton buttonmoretrending ;
+    ImageButton buttonmoretrending,buttonmorenewest ;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
-        newestAdapter = new SongAdapterList(context, listnewest);
+        newestAdapter = new SongAdapterList(context, listnewest,R.layout.item_song_list_home);
         newestAdapter.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -176,6 +176,15 @@ public class HomeFragment extends Fragment {
 
     void initButton(View view){
         buttonmoretrending=view.findViewById(R.id.buttonmoretrending);
+        buttonmorenewest=view.findViewById(R.id.newestmore);
+
+        buttonmorenewest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).loadFragment(NewestFragment.newInstance("",""),"");
+
+            }
+        });
 
 
 
