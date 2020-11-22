@@ -23,7 +23,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     Context ctx;
     private OnItemClickListener mOnItemClickListener;
     int layout;
-
+    boolean paddingfirst;
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onMoreClick(SongModel position);
@@ -34,9 +34,10 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public SongAdapterList(Context context, List<SongModel> items,int layout) {
+    public SongAdapterList(Context context, List<SongModel> items,int layout,boolean paddingfirst) {
         this.items = items;
         this.layout=layout;
+        this.paddingfirst=paddingfirst;
         ctx = context;
     }
 
@@ -75,12 +76,14 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         SongModel obj = items.get(position);
         if (holder instanceof OriginalViewHolder) {
             final OriginalViewHolder view = (OriginalViewHolder) holder;
-            if (position==0){
-            view.lyt_parent.setPadding(0,100,0,0);
-            }
-            else {
-                view.lyt_parent.setPadding(0,0,0,0);
+            if (paddingfirst){
+                if (position==0){
+                    view.lyt_parent.setPadding(0,50,0,0);
+                }
+                else {
+                    view.lyt_parent.setPadding(0,0,0,0);
 
+                }
             }
             view.imageView.setImageResource(R.drawable.artist);
 

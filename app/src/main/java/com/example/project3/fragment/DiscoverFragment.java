@@ -1,16 +1,24 @@
 package com.example.project3.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.project3.R;
+import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.model.SongModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +35,10 @@ public class DiscoverFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Context context;
+    RecyclerView recyclerView;
+    SongAdapterList songAdapterList;
+    List<SongModel> listsearch = new ArrayList<>();
 
     public DiscoverFragment() {
         // Required empty public constructor
@@ -57,6 +69,7 @@ public class DiscoverFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        context=getContext();
     }
 
     @Override
@@ -70,5 +83,37 @@ public class DiscoverFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        recyclerView=view.findViewById(R.id.rvsearch);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
+        //set data and list adapter
+        songAdapterList = new SongAdapterList(context, listsearch,R.layout.item_song_main,false);
+        songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+
+            }
+
+            @Override
+            public void onMoreClick(SongModel position) {
+
+            }
+
+
+        });
+        recyclerView.setAdapter(songAdapterList);
+        getSong();
+
+    }
+    void getSong(){
+        for (int i = 0; i <100 ; i++) {
+            SongModel songModel = new SongModel();
+            songModel.setTitle("xxxxx");
+            songModel.setArtist("artisty xxxx");
+            listsearch.add(songModel);
+
+        }
+        songAdapterList.notifyDataSetChanged();
     }
 }

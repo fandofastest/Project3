@@ -38,13 +38,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/nsbold"
         android:text="Top search"
         android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/rvsearch"
         app:layout_constraintEnd_toEndOf="@+id/searchview"
         app:layout_constraintStart_toStartOf="@+id/searchview"
         app:layout_constraintTop_toBottomOf="@+id/searchview" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvsearch"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView19"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

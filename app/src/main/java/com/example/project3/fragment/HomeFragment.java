@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
-        newestAdapter = new SongAdapterList(context, listnewest,R.layout.item_song_list_home);
+        newestAdapter = new SongAdapterList(context, listnewest,R.layout.item_song_list_home,false);
         newestAdapter.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

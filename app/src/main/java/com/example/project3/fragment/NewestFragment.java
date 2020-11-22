@@ -88,7 +88,7 @@ public class NewestFragment extends Fragment {
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listnewest,R.layout.item_song_main);
+        songAdapterList = new SongAdapterList(context, listnewest,R.layout.item_song_main,true);
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

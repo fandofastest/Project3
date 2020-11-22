@@ -11,7 +11,7 @@
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carouselView"
         android:layout_width="match_parent"
-        android:layout_height="250sp"
+        android:layout_height="230sp"
         app:fillColor="#FFFFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -31,7 +31,16 @@
             android:src="@drawable/bgtrending" />
 
     </com.synnapps.carouselview.CarouselView>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvfragmenttrending"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carouselView" />
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
@@ -80,16 +89,6 @@
         app:layout_constraintStart_toStartOf="@+id/carouselView"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvfragmenttrending"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carouselView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

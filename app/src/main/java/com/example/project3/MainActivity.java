@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.project3.fragment.DiscoverFragment;
 import com.example.project3.fragment.HomeFragment;
+import com.example.project3.fragment.LibraryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -94,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                     setting.setVisible(true);
                     return true;
                 case R.id.library:
+                    loadFragment(LibraryFragment.newInstance("",""),"Library");
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                    setting.setVisible(true);
 
                     return true;
             }
