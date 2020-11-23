@@ -27,7 +27,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     public interface OnItemClickListener {
-        void onItemClick(View view, PLaylistModel obj, int position);
+        void onItemClick(PLaylistModel obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
@@ -91,7 +91,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View view) {
                     if (mOnItemClickListener != null) {
-
+                        mOnItemClickListener.onItemClick(obj,position);
                     }
                 }
             });

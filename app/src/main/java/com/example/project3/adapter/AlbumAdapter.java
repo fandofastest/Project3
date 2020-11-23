@@ -20,20 +20,21 @@ import java.util.List;
 public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<AlbumModel> items = new ArrayList<>();
-
+    int layout;
     private final Context ctx;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, AlbumModel obj, int position);
+        void onItemClick(AlbumModel obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AlbumAdapter(Context context, List<AlbumModel> items) {
+    public AlbumAdapter(Context context, List<AlbumModel> items,int layout) {
         this.items = items;
+        this.layout=layout;
         ctx = context;
     }
 
@@ -57,7 +58,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         vh = new OriginalViewHolder(v);
         return vh;
     }
@@ -83,6 +84,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 @Override
                 public void onClick(View view) {
                     if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(obj,position);
 
                     }
                 }

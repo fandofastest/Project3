@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainly"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iconmyplaylist"
+        android:layout_width="32sp"
+        android:layout_height="32sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_plicon" />
+
+    <TextView
+        android:id="@+id/myplaylistname"
+        android:layout_width="266dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/nsregular"
+        android:text="Playlist name"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/totalsongs"
+        app:layout_constraintStart_toEndOf="@+id/iconmyplaylist"
+        app:layout_constraintTop_toTopOf="@+id/iconmyplaylist" />
+
+    <TextView
+        android:id="@+id/totalsongs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/nsregular"
+        android:text="25 Songs"
+        android:textColor="@color/textgrey"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iconmyplaylist"
+        app:layout_constraintStart_toEndOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/myplaylistname" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="9sp"
+        android:layout_height="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalsongs"
+        app:layout_constraintStart_toStartOf="@+id/myplaylistname"
+        app:layout_constraintTop_toTopOf="@+id/totalsongs"
+        app:srcCompat="@drawable/ic_nada" />
+
+    <ImageButton
+        android:id="@+id/imageButton11"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/iconmyplaylist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iconmyplaylist"
+        app:srcCompat="@drawable/ic_menutiga" />
+</androidx.constraintlayout.widget.ConstraintLayout>

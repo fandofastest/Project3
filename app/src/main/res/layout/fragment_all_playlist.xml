@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@drawable/bgnewest"
+        android:src="@drawable/bgallplaylist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,23 +59,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="-23sp"
+                <LinearLayout
+                    android:layout_marginTop="-20sp"
+                    android:gravity="center_horizontal"
                     android:layout_below="@+id/boxtitle"
-                    android:id="@+id/rv"
                     android:layout_width="match_parent"
-                    android:layout_height="600sp"
-                    android:background="@color/maincolour"
-                    android:isScrollContainer="false"
-                    android:overScrollMode="always"
-                    android:nestedScrollingEnabled="false" />
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvallplaylist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="600sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:isScrollContainer="false"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="always" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/boxtitle"
-                    android:layout_marginLeft="30sp"
-                    android:layout_marginRight="30sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="30sp"
+                    android:layout_marginTop="40sp"
+                    android:layout_marginRight="30sp"
                     android:orientation="vertical">
 
                     <TextView
@@ -84,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:fontFamily="@font/nsbold"
-                        android:text="Newest"
+                        android:text="Dailymix"
                         android:textColor="@color/white"
                         android:textSize="28sp" />
 
@@ -93,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nsregular"
-                        android:text="song can makes you move!"
+                        android:text="Listen and enjoy song here"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
@@ -101,7 +109,7 @@
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Enjoy music and let the music beat your heart"
+                        android:text="Best song in decade we collect just for you"
                         android:textColor="@color/textgrey"
                         android:textSize="10sp" />
 

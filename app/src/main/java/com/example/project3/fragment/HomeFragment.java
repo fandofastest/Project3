@@ -1,6 +1,7 @@
 package com.example.project3.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.project3.MainActivity;
+import com.example.project3.PlayerActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.AlbumAdapter;
 import com.example.project3.adapter.PlaylistAdapter;
@@ -54,7 +56,7 @@ public class HomeFragment extends Fragment {
     List<AlbumModel> listalbum = new ArrayList<>();
 
 
-    ImageButton buttonmoretrending,buttonmorenewest ;
+    ImageButton buttonmoretrending,buttonmorenewest,buttonmorealbum,buttonmoreplaylist ;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -108,6 +110,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
 
+                Intent intent = new Intent(context, PlayerActivity.class);
+                startActivity(intent);
+
 
             }
 
@@ -123,7 +128,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        rvnewest=view.findViewById(R.id.rvnewest);
+        rvnewest=view.findViewById(R.id.rv);
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
@@ -151,7 +156,7 @@ public class HomeFragment extends Fragment {
         rvplaylist.setHasFixedSize(true);
         //set data and list adapter
         playlistAdapter = new PlaylistAdapter(context, listplaylist);
-        playlistAdapter.setOnItemClickListener((view1, obj, position) -> {
+        playlistAdapter.setOnItemClickListener(( obj, position) -> {
 
 
         });
@@ -163,8 +168,8 @@ public class HomeFragment extends Fragment {
         rvAlbum.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
         rvAlbum.setHasFixedSize(true);
         //set data and list adapter
-        albumAdapter = new AlbumAdapter(context, listalbum);
-        albumAdapter.setOnItemClickListener((view1, obj, position) -> {
+        albumAdapter = new AlbumAdapter(context, listalbum,R.layout.item_album);
+        albumAdapter.setOnItemClickListener(( obj, position) -> {
 
 
         });
@@ -177,6 +182,8 @@ public class HomeFragment extends Fragment {
     void initButton(View view){
         buttonmoretrending=view.findViewById(R.id.buttonmoretrending);
         buttonmorenewest=view.findViewById(R.id.newestmore);
+        buttonmorealbum=view.findViewById(R.id.albummore);
+        buttonmoreplaylist=view.findViewById(R.id.playlistmore);
 
         buttonmorenewest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +199,19 @@ public class HomeFragment extends Fragment {
         buttonmoretrending.setOnClickListener(v -> {
             ((MainActivity) getActivity()).loadFragment(TrendingFragment.newInstance("",""),"");
 
+        });
+        buttonmorealbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).loadFragment(AllAlbumFragment.newInstance("",""),"");
+            }
+        });
+
+        buttonmoreplaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).loadFragment(AllPlaylistFragment.newInstance("",""),"");
+            }
         });
 
     }

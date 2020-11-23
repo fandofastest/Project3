@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.example.project3.R;
 import com.example.project3.fragment.libraryfragment.FavoriteFragment;
+import com.example.project3.fragment.libraryfragment.MyPlaylistFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -99,14 +100,22 @@ public class LibraryFragment extends Fragment {
                     tab.setText(titles[position]);
                     tab.setIcon(icon[position]);
                 }).attach();
+        TabLayout.Tab tab = tabLayout.getTabAt(0);
+        assert tab != null;
+        tab.getIcon().setColorFilter(getResources().getColor(R.color.merah), PorterDuff.Mode.SRC_IN);
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(getResources().getColor(R.color.merah), PorterDuff.Mode.SRC_IN);
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
+
 
             }
 
@@ -132,7 +141,7 @@ public class LibraryFragment extends Fragment {
                 case 0:
                     return FavoriteFragment.newInstance("Library", "");
                 case 1:
-                    return FavoriteFragment.newInstance("Library", "");
+                    return MyPlaylistFragment.newInstance("Library", "");
                 case 2:
                     return FavoriteFragment.newInstance("Library", "");
             }

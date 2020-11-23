@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".playerfragment.HomePlayerFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bgplayer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nsregular"
+        android:text="I'll See You In My Dreams"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toTopOf="@+id/artistnameplayer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+    <TextView
+        android:id="@+id/artistnameplayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Artist name"
+        android:textColor="@color/textgrey"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageFilterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/imageFilterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_backcontrol"
+        app:layout_constraintBottom_toTopOf="@+id/playbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artistnameplayer" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_eq"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton8"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton8"
+        app:layout_constraintStart_toStartOf="@+id/imageFilterButton"
+        app:layout_constraintTop_toTopOf="@+id/imageButton8" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_playlist"
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterButton"
+        app:layout_constraintEnd_toEndOf="@+id/imageFilterButton"
+        app:layout_constraintStart_toStartOf="@+id/imageFilterButton"
+        app:layout_constraintTop_toTopOf="@+id/imageFilterButton" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_sleep"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton8"
+        app:layout_constraintEnd_toEndOf="@+id/imageFilterButton"
+        app:layout_constraintStart_toEndOf="@+id/imageButton8"
+        app:layout_constraintTop_toTopOf="@+id/imageButton8" />
+
+    <ImageButton
+        android:id="@+id/playbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_playicon"
+        app:layout_constraintBottom_toTopOf="@+id/seekbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageFilterButton" />
+
+    <ImageButton
+        android:id="@+id/shuffle"
+        android:layout_width="16sp"
+        android:layout_height="16sp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_shuffel"
+        app:layout_constraintBottom_toBottomOf="@+id/playbutton"
+        app:layout_constraintEnd_toStartOf="@+id/prev"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/playbutton" />
+
+    <ImageButton
+        android:id="@+id/prev"
+        android:layout_width="16sp"
+        android:layout_height="16sp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_previous"
+        app:layout_constraintBottom_toBottomOf="@+id/playbutton"
+        app:layout_constraintEnd_toStartOf="@+id/playbutton"
+        app:layout_constraintStart_toEndOf="@+id/shuffle"
+        app:layout_constraintTop_toTopOf="@+id/playbutton" />
+
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="@+id/playbutton"
+        app:layout_constraintEnd_toStartOf="@+id/repeat"
+        app:layout_constraintStart_toEndOf="@+id/playbutton"
+        app:layout_constraintTop_toTopOf="@+id/playbutton" />
+
+    <ImageButton
+        android:id="@+id/repeat"
+        android:layout_width="16sp"
+        android:layout_height="16sp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_loop"
+        app:layout_constraintBottom_toBottomOf="@+id/playbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/next"
+        app:layout_constraintTop_toTopOf="@+id/playbutton" />
+
+
+    <com.warkiz.widget.IndicatorSeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/songimage"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:isb_indicator_color="@color/grey"
+        app:isb_indicator_text_color="@color/maincolour"
+        app:isb_indicator_text_size="18sp"
+        app:isb_max="100"
+        app:isb_min="-1.0"
+        app:isb_only_thumb_draggable="false"
+        app:isb_progress="25"
+        app:isb_seek_smoothly="true"
+        app:isb_show_indicator="rounded_rectangle"
+        app:isb_show_tick_marks_type="oval"
+        app:isb_show_tick_texts="true"
+        app:isb_thumb_color="@color/merah"
+        app:isb_thumb_size="20dp"
+        app:isb_tick_marks_drawable="@mipmap/ic_launcher"
+        app:isb_tick_marks_size="13dp"
+        app:isb_tick_texts_color="@color/white"
+        app:isb_tick_texts_size="15sp"
+        app:isb_track_background_color="@color/maincolour"
+        app:isb_track_background_size="20dp"
+        app:isb_track_progress_color="@color/merah"
+        app:isb_track_progress_size="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playbutton" />
+
+    <ImageButton
+        android:id="@+id/imageButton15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_lirikbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+
+    <TextView
+        android:id="@+id/currentduration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="00:00"
+        android:textColor="@color/merah"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton15"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+
+    <TextView
+        android:id="@+id/totalduration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="05:00"
+        android:textColor="@color/merah"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton15"
+        app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

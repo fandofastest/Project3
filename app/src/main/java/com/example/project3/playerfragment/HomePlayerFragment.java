@@ -1,31 +1,23 @@
-package com.example.project3.fragment.libraryfragment;
+package com.example.project3.playerfragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.project3.R;
-import com.example.project3.adapter.SongAdapterList;
-import com.example.project3.model.SongModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FavoriteFragment#newInstance} factory method to
+ * Use the {@link HomePlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoriteFragment extends Fragment {
+public class HomePlayerFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,12 +27,8 @@ public class FavoriteFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Context context;
-    RecyclerView rvfav;
-    SongAdapterList songAdapterList;
-    List<SongModel> listfav=new ArrayList<>();
 
-    public FavoriteFragment() {
+    public HomePlayerFragment() {
         // Required empty public constructor
     }
 
@@ -50,11 +38,11 @@ public class FavoriteFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoriteFragment.
+     * @return A new instance of fragment HomePlayerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavoriteFragment newInstance(String param1, String param2) {
-        FavoriteFragment fragment = new FavoriteFragment();
+    public static HomePlayerFragment newInstance(String param1, String param2) {
+        HomePlayerFragment fragment = new HomePlayerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,43 +63,11 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        return inflater.inflate(R.layout.fragment_home_player, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvfav=view.findViewById(R.id.rv);
-        rvfav.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
-        rvfav.setHasFixedSize(true);
-        //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listfav,R.layout.item_song_main,true);
-        songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-
-            }
-
-            @Override
-            public void onMoreClick(SongModel position) {
-
-            }
-
-
-        });
-        rvfav.setAdapter(songAdapterList);
-        getSong();
-
-    }
-    void getSong(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listfav.add(songModel);
-
-        }
-        songAdapterList.notifyDataSetChanged();
     }
 }

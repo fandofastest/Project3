@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".fragment.NewestFragment"
+    >
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/shadownew"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/bgallalbum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.amar.library.ui.StickyScrollView
+        android:id="@+id/scrolll"
+        android:layout_width="match_parent"
+        app:stickyHeader="@+id/sticky"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <RelativeLayout
+                android:id="@+id/sticky"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/boxtitle"
+                    android:gravity="center_horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="600sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:isScrollContainer="false"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="always" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/boxtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="170sp"
+                    android:layout_marginLeft="30sp"
+                    android:layout_marginRight="30sp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/albumimage"
+                        android:layout_width="131sp"
+                        android:layout_height="170sp"
+                        android:src="@drawable/albumimgnew"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:layout_editor_absoluteY="0dp" />
+
+                    <TextView
+                        android:id="@+id/albumname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/nsbold"
+                        android:text="Albums name"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"
+                        app:layout_constraintStart_toEndOf="@+id/albumimage"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/years"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nsregular"
+                        android:text="(2017)"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@+id/albumname"
+                        app:layout_constraintTop_toBottomOf="@+id/albumname" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="10 Songs"
+                        android:textColor="@color/textgrey"
+                        android:textSize="10sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageView10"
+                        app:layout_constraintTop_toBottomOf="@+id/years" />
+
+                    <ImageView
+                        android:id="@+id/imageView10"
+                        android:layout_width="9sp"
+                        android:layout_height="9sp"
+                        android:src="@drawable/ic_nada"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                        app:layout_constraintStart_toStartOf="@+id/albumname"
+                        app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+                    <ImageButton
+                        android:id="@+id/buttonplaymusic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_playbutton"
+                        app:layout_constraintStart_toStartOf="@+id/albumname"
+                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+                    <ImageButton
+                        android:id="@+id/libbutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_libutton"
+                        app:layout_constraintStart_toStartOf="@+id/buttonplaymusic"
+                        app:layout_constraintTop_toBottomOf="@+id/buttonplaymusic" />
+
+                    <ImageView
+                        android:id="@+id/artistalbum"
+                        android:layout_width="64sp"
+                        android:layout_height="64sp"
+                        android:src="@drawable/artisnew"
+                        app:layout_constraintEnd_toEndOf="@+id/albumimage"
+                        app:layout_constraintHorizontal_bias="0.432"
+                        app:layout_constraintStart_toStartOf="@+id/albumimage"
+                        app:layout_constraintTop_toTopOf="@+id/libbutton" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.amar.library.ui.StickyScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
