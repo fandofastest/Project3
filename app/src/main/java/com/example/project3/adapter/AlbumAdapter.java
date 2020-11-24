@@ -44,6 +44,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public TextView albumname;
         public TextView years;
         public View itemlayout;
+        public TextView plays;
+        public TextView no;
         public OriginalViewHolder(View v) {
             super(v);
 
@@ -52,6 +54,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             albumname=v.findViewById(R.id.playlist);
             itemlayout=v.findViewById(R.id.mainly);
             years=v.findViewById(R.id.years);
+            plays=v.findViewById(R.id.totalplays);
+            no=v.findViewById(R.id.textView12);
         }
     }
 
@@ -68,18 +72,23 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         AlbumModel obj = items.get(position);
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
-//            Glide
-//                    .with(ctx)
-//                    .load(obj.getImageUrl())
-//                    .centerCrop()
-//                    .into(view.image);
-            view.image.setImageResource(R.drawable.albumimgnew);
-            view.artist.setImageResource(R.drawable.artisnew);
+            Glide
+                    .with(ctx)
+                    .load(obj.getImageUrl())
+                    .centerCrop()
+                    .into(view.image);
+            Glide
+                    .with(ctx)
+                    .load(obj.getArtistcover())
+                    .centerCrop()
+                    .into(view.artist);
             view.albumname.setText(obj.getAlbumName());
             view.years.setText(obj.getYears());
+            view.plays.setText(obj.getPlays()+" Plays");
             if (obj.getYears()==null){
                 view.years.setText("2020");
             }
+            view.no.setText(String.valueOf(position+1));
             view.itemlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

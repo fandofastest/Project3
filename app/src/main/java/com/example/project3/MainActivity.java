@@ -3,21 +3,30 @@ package com.example.project3;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.project3.fragment.DiscoverFragment;
 import com.example.project3.fragment.HomeFragment;
 import com.example.project3.fragment.LibraryFragment;
+import com.example.project3.helper.Dialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.skydoves.powermenu.MenuAnimation;
+import com.skydoves.powermenu.PowerMenu;
+import com.skydoves.powermenu.PowerMenuItem;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -34,9 +43,69 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolbar();
         initbottomnavigation();
-        loadFragment(HomeFragment.newInstance("",""),"App Name");
+        loadFragment(HomeFragment.newInstance("", ""), "App Name");
+
+
+
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem newitem) {
+
+        if (newitem.getTitle().equals("Setting")){
+            Context ctx=MainActivity.this;
+            PowerMenu powerMenu = new PowerMenu.Builder(ctx)
+                    .addItem(new PowerMenuItem("About App", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Privacy Policy", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Disclaimer", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Share This App", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Rating App", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Equalizer", false)) // aad an item list.
+                    .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
+                    .setMenuRadius(10f) // sets the corner radius.
+                    .setMenuShadow(10f) // sets the shadow.
+                    .setTextColor(ContextCompat.getColor(ctx, R.color.white))
+                    .setTextGravity(Gravity.LEFT)
+                    .setTextTypeface(ResourcesCompat.getFont(ctx, R.font.nsregular))
+                    .setSelectedTextColor(ContextCompat.getColor(ctx, R.color.merah))
+                    .setMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
+                    .build();
+
+            powerMenu.setOnMenuItemClickListener((position1, item) -> {
+
+               Dialog.showToast("10 Songs Added",MainActivity.this);
+
+                if (position1==0){
+                    Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                    startActivity(intent);
+                }
+                else if (position1==1){
+                    Dialog.privacydisclaimer("title","isi",MainActivity.this);
+                }
+                else if (position1==2){
+                    Dialog.privacydisclaimer("title","isi",MainActivity.this);
+                }
+                else if (position1==3){
+                    Dialog.sharedialog(MainActivity.this);
+                }
+               else if (position1==4){
+                    Dialog.ratedialog(MainActivity.this,MainActivity.this);
+                }
+
+
+            });
+            powerMenu.showAsAnchorRightBottom(toolbar);
+
+        }
+
+
+        return super.onOptionsItemSelected(newitem);
+    }
+
+
+
+
     private void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
         titleToolbar = (TextView) toolbar.findViewById(R.id.toolbar_title);
@@ -61,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
 
          setting = menu.findItem(R.id.action_setting);
-         setting.setVisible(false);
+         setting.setVisible(true);
 
 
         return true;

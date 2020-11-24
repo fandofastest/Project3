@@ -12,5 +12,24 @@
     <color name="grey">#BFBFBF</color>
     <color name="textgrey">#B6B0B0</color>
     <color name="textorange">#F9B721</color>
+    <color name="bgdialog">#441D45</color>
+
+
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_600">#757575</color>
+    <color name="yellow_600">#FDD835</color>
+
+
+    <color name="success">#7CB342</color>
+
+    <color name="error">#E53935</color>
+
+    <color name="information">#039BE5</color>
+
+    <color name="warning">#FFC400</color>
+
+
 </resources>
 

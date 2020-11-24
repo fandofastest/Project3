@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg"
+    tools:context=".AboutActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        >
+        <TextView
+            android:fontFamily="@font/nsbold"
+            android:textFontWeight="700"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About"
+            android:layout_gravity="left"
+            android:id="@+id/toolbar_title" />
+
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:layout_marginBottom="20sp"
+            android:id="@+id/img"
+            android:layout_marginTop="80sp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/appicon"/>
+
+        <LinearLayout
+            android:layout_below="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginBottom="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+                <TextView
+                    android:layout_marginBottom="10sp"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Aplication Name" />
+                <TextView
+                    android:textSize="13sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="ArisPlay -  Media Player" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+                <TextView
+                    android:layout_marginBottom="10sp"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Version" />
+                <TextView
+                    android:textSize="13sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="1.0.0" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+                <TextView
+                    android:layout_marginBottom="10sp"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Developer" />
+                <TextView
+                    android:textSize="13sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="fandofast" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+                <TextView
+                    android:layout_marginBottom="10sp"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Email" />
+                <TextView
+                    android:textSize="13sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="fandofast@gmail.com" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+                <TextView
+                    android:layout_marginBottom="10sp"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Important" />
+                <TextView
+                    android:textSize="13sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Privacy Policy" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+                <TextView
+                    android:layout_marginBottom="10sp"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Read This" />
+                <TextView
+                    android:textSize="13sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Disclaimer" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
+
+

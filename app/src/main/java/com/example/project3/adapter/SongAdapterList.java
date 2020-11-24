@@ -9,10 +9,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +60,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             artistname=v.findViewById(R.id.titlesong);
             imageView=v.findViewById(R.id.imageView3);
             lyt_parent=v.findViewById(R.id.mainly);
+            no=v.findViewById(R.id.no);
 
         }
     }
@@ -85,25 +89,31 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 }
             }
-            view.imageView.setImageResource(R.drawable.artist);
 
-//            Glide
-//                    .with(ctx)
-//                    .load(obj.getImageurl())
-//                    .centerCrop()
-//                    .into(view.imageView);
-//            view.artistname.setText(obj.getArtist());
-//            view.songtitle.setText(obj.getTitle());
-            if (!(selectedKey == -1)) {
-                if (position != selectedKey) {
-//                    view.songactive.setVisibility(View.GONE);
-//                    view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+            Glide
+                    .with(ctx)
+                    .load(obj.getImageurl())
+                    .centerCrop()
+                    .into(view.imageView);
+            view.artistname.setText(obj.getArtist());
+            view.songtitle.setText(obj.getTitle());
 
-                } else {
-//                    view.songactive.setVisibility(View.VISIBLE);
-//                    view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.purple_200));
+            view.no.setText(Tools.parsenumber(position+1));
 
+            if (!(layout==R.layout.item_song_list_home)){
+                if (!(selectedKey == -1)) {
+                    if (position != selectedKey) {
+                        view.songactive.setVisibility(View.GONE);
+                        view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+
+                    } else {
+                        view.songactive.setVisibility(View.VISIBLE);
+                        view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.purple_200));
+
+                    }
                 }
+
+
             }
 
 //            if (menu==0){
@@ -136,7 +146,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     notifyDataSetChanged();
 
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(position);
+//                        mOnItemClickListener.onItemClick(position);
 
                     }
                 }

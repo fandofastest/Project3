@@ -1,2 +1,4 @@
+include ':williamchart'
+include ':equalizer'
 include ':app'
 rootProject.name = "Project3"

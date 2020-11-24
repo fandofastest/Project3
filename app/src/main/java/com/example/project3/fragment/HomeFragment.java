@@ -10,11 +10,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.project3.MainActivity;
 import com.example.project3.PlayerActivity;
 import com.example.project3.R;
@@ -25,9 +30,19 @@ import com.example.project3.adapter.SongAdapterList;
 import com.example.project3.model.AlbumModel;
 import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Config;
+import com.example.project3.utils.Static;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.project3.utils.Static.listalbum;
+import static com.example.project3.utils.Static.listnewmusic;
+import static com.example.project3.utils.Static.listtrending;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,15 +60,12 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     RecyclerView rvrecent,rvnewest,rvplaylist,rvAlbum;
-    SongAdapter recentAdapter;
+    SongAdapter trendingAdapter;
     SongAdapterList newestAdapter;
     PlaylistAdapter playlistAdapter;
     AlbumAdapter albumAdapter;
     Context context;
-    List<SongModel> listrecent = new ArrayList<>();
-    List<SongModel> listnewest = new ArrayList<>();
     List<PLaylistModel> listplaylist = new ArrayList<>();
-    List<AlbumModel> listalbum = new ArrayList<>();
 
 
     ImageButton buttonmoretrending,buttonmorenewest,buttonmorealbum,buttonmoreplaylist ;
@@ -105,8 +117,8 @@ public class HomeFragment extends Fragment {
         rvrecent.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
         rvrecent.setHasFixedSize(true);
         //set data and list adapter
-        recentAdapter = new SongAdapter(context, listrecent);
-        recentAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
+        trendingAdapter = new SongAdapter(context, listtrending);
+        trendingAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
 
@@ -123,8 +135,8 @@ public class HomeFragment extends Fragment {
 
 
         });
-        rvrecent.setAdapter(recentAdapter);
-        getRecent();
+        rvrecent.setAdapter(trendingAdapter);
+        getTrending();
 
 
 
@@ -132,7 +144,7 @@ public class HomeFragment extends Fragment {
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
-        newestAdapter = new SongAdapterList(context, listnewest,R.layout.item_song_list_home,false);
+        newestAdapter = new SongAdapterList(context, listnewmusic,R.layout.item_song_list_home,false);
         newestAdapter.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -215,26 +227,77 @@ public class HomeFragment extends Fragment {
         });
 
     }
-    void getRecent(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listrecent.add(songModel);
+    void getTrending(){
+        rvrecent.removeAllViews();
+        listtrending.clear();
+        String url= Config.TOPCHART;
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray jsonArray = response.getJSONArray("song");
+                for (int i = 0; i <jsonArray.length() ; i++) {
+                    JSONObject jsonObject= jsonArray.getJSONObject(i);
+                    SongModel modelSong = new SongModel();
+                    modelSong.setId(jsonObject.getInt("id"));
+                    modelSong.setSongurl(jsonObject.getString("filemp3"));
+                    modelSong.setLyric(jsonObject.getString("lyric"));
+                    modelSong.setDuration(jsonObject.getString("duration"));
+                    modelSong.setTitle(jsonObject.getString("songname"));
+                    modelSong.setGenre(jsonObject.getString("genrename"));
+                    modelSong.setImageurl(jsonObject.getString("songcover"));
+                    modelSong.setArtist(jsonObject.getString("artistname"));
+                    modelSong.setAlbum(jsonObject.getString("albumname"));
+                    modelSong.setYears(jsonObject.getString("year"));
+                    modelSong.setAlbumcover(jsonObject.getString("albumcover"));
+                    modelSong.setPlays(jsonObject.getInt("plays"));
 
-        }
-        recentAdapter.notifyDataSetChanged();
+                    listtrending.add(modelSong);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            trendingAdapter.notifyDataSetChanged();
+
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 
     void getNewest(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listnewest.add(songModel);
+        rvnewest.removeAllViews();
+        listnewmusic.clear();
+        String url= Config.NEWMUSIC;
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("song");
+                    for (int i = 0; i <jsonArray.length() ; i++) {
+                        JSONObject jsonObject= jsonArray.getJSONObject(i);
+                        SongModel modelSong = new SongModel();
+                        modelSong.setId(jsonObject.getInt("id"));
+                        modelSong.setSongurl(jsonObject.getString("filemp3"));
+                        modelSong.setLyric(jsonObject.getString("lyric"));
+                        modelSong.setDuration(jsonObject.getString("duration"));
+                        modelSong.setTitle(jsonObject.getString("songname"));
+                        modelSong.setGenre(jsonObject.getString("genrename"));
+                        modelSong.setImageurl(jsonObject.getString("songcover"));
+                        modelSong.setArtist(jsonObject.getString("artistname"));
+                        modelSong.setAlbum(jsonObject.getString("albumname"));
+                        modelSong.setYears(jsonObject.getString("year"));
+                        modelSong.setPlays(jsonObject.getInt("plays"));
+                        listnewmusic.add(modelSong);
+                    }
 
-        }
-        newestAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                newestAdapter.notifyDataSetChanged();
+
+            }
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
     void getPlaylist(){
         for (int i = 0; i <100 ; i++) {
@@ -252,5 +315,37 @@ public class HomeFragment extends Fragment {
             listalbum.add(albumModel);
         }
         albumAdapter.notifyDataSetChanged();
+
+
+        rvAlbum.removeAllViews();
+        listalbum.clear();
+        String url= Config.ALLALBUM;
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray jsonArray = response.getJSONArray("album");
+                for (int i = 0; i <jsonArray.length() ; i++) {
+                    JSONObject jsonObject= jsonArray.getJSONObject(i);
+                    AlbumModel albumModel= new AlbumModel();
+                    albumModel.setAlbumName(jsonObject.getString("name"));
+                    albumModel.setId(String.valueOf(jsonObject.getInt("id")));
+                    albumModel.setYears(jsonObject.getString("year"));
+                    albumModel.setArtistName(jsonObject.getString("artist"));
+                    albumModel.setImageUrl(jsonObject.getString("cover"));
+                    albumModel.setPlays(jsonObject.getInt("plays"));
+                    albumModel.setArtistcover(jsonObject.getString("artistcover"));
+
+
+
+                    listalbum.add(albumModel);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            albumAdapter.notifyDataSetChanged();
+
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 }

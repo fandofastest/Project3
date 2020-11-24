@@ -4,13 +4,30 @@ import io.realm.RealmObject;
 
 public class SongModel extends RealmObject {
 
-    String title,artist,album,duration,lyric,imageurl,songurl,playlistid,genre,years;
+    String title,artist,album,duration,lyric,imageurl,songurl,playlistid,genre,years,albumcover;
+    int plays;
 
     int id;
 
     int index;
 
     int RECENT=0;
+
+    public int getPlays() {
+        return plays;
+    }
+
+    public void setPlays(int plays) {
+        this.plays = plays;
+    }
+
+    public String getAlbumcover() {
+        return albumcover;
+    }
+
+    public void setAlbumcover(String albumcover) {
+        this.albumcover = albumcover;
+    }
 
     public String getTitle() {
         return title;

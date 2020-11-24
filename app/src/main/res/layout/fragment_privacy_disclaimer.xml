@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/roundedfull">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_marginTop="42sp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/appicon"/>
+    <TextView
+        android:layout_marginTop="36sp"
+        android:layout_marginLeft="36sp"
+        android:layout_marginRight="36sp"
+        android:id="@+id/title"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textFontWeight="700"
+        android:layout_below="@id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <TextView
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="36sp"
+        android:layout_marginRight="36sp"
+        android:id="@+id/isi"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textFontWeight="400"
+        android:layout_below="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+        <LinearLayout
+            android:layout_below="@id/isi"
+            android:layout_marginTop="27sp"
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            />
+    </RelativeLayout>
+
+
+
+
+</androidx.core.widget.NestedScrollView>

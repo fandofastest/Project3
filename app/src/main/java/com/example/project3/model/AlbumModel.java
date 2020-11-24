@@ -1,7 +1,24 @@
 package com.example.project3.model;
 
 public class AlbumModel {
-    String id,albumName,artistName,genre,imageUrl,deskripsi,years;
+    String id,albumName,artistName,genre,imageUrl,deskripsi,years,artistcover;
+    int plays;
+
+    public String getArtistcover() {
+        return artistcover;
+    }
+
+    public void setArtistcover(String artistcover) {
+        this.artistcover = artistcover;
+    }
+
+    public int getPlays() {
+        return plays;
+    }
+
+    public void setPlays(int plays) {
+        this.plays = plays;
+    }
 
     public String getYears() {
         return years;

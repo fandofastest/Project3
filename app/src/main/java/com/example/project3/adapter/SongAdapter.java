@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.model.SongModel;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,19 +48,23 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public View lyt_parent;
         public TextView artistname;
         public TextView songtitle;
-        public ImageView imageView,imageView2;
+        public ImageView albumcover,artistcover;
         public ImageView songactive;
         public ImageButton more;
         public TextView no;
+        public TextView duration;
+        public TextView plays;
         public OriginalViewHolder(View v) {
             super(v);
 
-//            songtitle=v.findViewById(R.id.textView3);
-//            artistname=v.findViewById(R.id.textView4);
-            imageView=v.findViewById(R.id.imageView);
-            imageView2=v.findViewById(R.id.imageView2);
+            songtitle=v.findViewById(R.id.titlesong);
+            artistname=v.findViewById(R.id.artistname);
+            albumcover=v.findViewById(R.id.imageView);
+            artistcover=v.findViewById(R.id.imageView2);
+            duration=v.findViewById(R.id.textView8);
 //            songactive=v.findViewById(R.id.songactive);
             lyt_parent=v.findViewById(R.id.mainly);
+            plays=v.findViewById(R.id.textView7);
 
         }
     }
@@ -77,15 +83,21 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         SongModel obj = items.get(position);
         if (holder instanceof SongAdapter.OriginalViewHolder) {
             final SongAdapter.OriginalViewHolder view = (SongAdapter.OriginalViewHolder) holder;
-            view.imageView.setImageResource(R.drawable.iconmusiclebar);
-            view.imageView2.setImageResource(R.drawable.iconmusic);
-//            Glide
-//                    .with(ctx)
-//                    .load(obj.getImageurl())
-//                    .centerCrop()
-//                    .into(view.imageView);
-//            view.artistname.setText(obj.getArtist());
-//            view.songtitle.setText(obj.getTitle());
+
+            Glide
+                    .with(ctx)
+                    .load(obj.getImageurl())
+                    .centerCrop()
+                    .into(view.artistcover);
+            Glide
+                    .with(ctx)
+                    .load(obj.getAlbumcover())
+                    .centerCrop()
+                    .into(view.albumcover);
+            view.artistname.setText(obj.getArtist());
+            view.songtitle.setText(obj.getTitle());
+            view.duration.setText(obj.getDuration());
+            view.plays.setText(obj.getPlays()+" Plays");
             if (!(selectedKey == -1)) {
                 if (position != selectedKey) {
 //                    view.songactive.setVisibility(View.GONE);

@@ -19,15 +19,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.089999974"
-        app:riv_border_width="2dip"
-        app:riv_border_color="#333333"
         app:riv_mutate_background="true"
-        app:riv_corner_radius="10sp"
+        app:riv_corner_radius="30sp"
         tools:srcCompat="@drawable/iconmusiclebar"
-        tools:ignore="MissingClass" />
+      />
 
     <com.makeramen.roundedimageview.RoundedImageView
-        app:riv_corner_radius="4sp"
+        app:riv_corner_radius="6sp"
         android:id="@+id/imageView2"
         android:layout_width="46sp"
         android:layout_height="46sp"
@@ -39,8 +37,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
+
         tools:srcCompat="@drawable/iconmusic"
-        tools:ignore="MissingClass" />
+         />
 
     <TextView
         android:id="@+id/titlesong"

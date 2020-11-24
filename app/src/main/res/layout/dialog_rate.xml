@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:background="@drawable/roundedfull"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="15sp">
+
+
+
+            <View
+                android:layout_width="14sp"
+                android:layout_height="0dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/appicon"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="15sp"
+            android:paddingRight="15sp">
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                style="@style/Yellow.AppCompatRatingBar"
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="1"
+                android:theme="@style/Yellow.AppCompatRatingBar" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="15sp">
+
+            <EditText
+                android:id="@+id/et_post"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bgdialog"
+                android:gravity="top"
+                android:hint="Write review ..."
+                android:lines="4"
+                android:padding="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_marginRight="5sp"
+                android:gravity="right"
+                android:layout_below="@+id/inputplaylist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancel_action"
+                    android:layout_marginLeft="10sp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    style="@style/MyButtonCancle"
+                    android:textSize="14sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50sp"
+                    android:text="Cancel"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:id="@+id/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    style="@style/MyButtonSubmit"
+                    android:textSize="14sp"
+                    android:textFontWeight="700"
+                    android:fontFamily="@font/nsregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50sp"
+                    android:text="Submit"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
