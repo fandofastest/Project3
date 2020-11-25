@@ -27,6 +27,8 @@ import com.example.project3.model.PLaylistModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.Static.listplaylist;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AllPlaylistFragment#newInstance} factory method to
@@ -44,7 +46,6 @@ public class AllPlaylistFragment extends Fragment {
     private String mParam2;
     RecyclerView recyclerView;
     PlaylistAdapter playlistAdapter;
-    List<PLaylistModel> listplaylist= new ArrayList<>();
     StickyScrollView stickyScrollView;
     Context context;
     public AllPlaylistFragment() {
@@ -130,15 +131,7 @@ public class AllPlaylistFragment extends Fragment {
 
         });
         recyclerView.setAdapter(playlistAdapter);
-        getPlaylist();
 
     }
-    void getPlaylist(){
-        for (int i = 0; i <100 ; i++) {
-            PLaylistModel pLaylistModel = new PLaylistModel();
-            pLaylistModel.setName("xxxxx");
-            listplaylist.add(pLaylistModel);
-        }
-        playlistAdapter.notifyDataSetChanged();
-    }
+
 }

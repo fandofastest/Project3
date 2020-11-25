@@ -56,8 +56,8 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public OriginalViewHolder(View v) {
             super(v);
 
-            songtitle=v.findViewById(R.id.artist);
-            artistname=v.findViewById(R.id.titlesong);
+            songtitle=v.findViewById(R.id.titlesong);
+            artistname=v.findViewById(R.id.artist);
             imageView=v.findViewById(R.id.imageView3);
             lyt_parent=v.findViewById(R.id.mainly);
             no=v.findViewById(R.id.no);
@@ -95,7 +95,14 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     .load(obj.getImageurl())
                     .centerCrop()
                     .into(view.imageView);
-            view.artistname.setText(obj.getArtist());
+
+            try {
+                view.artistname.setText(obj.getArtist());
+            }
+            catch (Exception e){
+                System.out.println(e);
+
+            }
             view.songtitle.setText(obj.getTitle());
 
             view.no.setText(Tools.parsenumber(position+1));

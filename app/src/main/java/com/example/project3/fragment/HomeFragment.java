@@ -42,6 +42,7 @@ import java.util.List;
 
 import static com.example.project3.utils.Static.listalbum;
 import static com.example.project3.utils.Static.listnewmusic;
+import static com.example.project3.utils.Static.listplaylist;
 import static com.example.project3.utils.Static.listtrending;
 
 /**
@@ -65,7 +66,6 @@ public class HomeFragment extends Fragment {
     PlaylistAdapter playlistAdapter;
     AlbumAdapter albumAdapter;
     Context context;
-    List<PLaylistModel> listplaylist = new ArrayList<>();
 
 
     ImageButton buttonmoretrending,buttonmorenewest,buttonmorealbum,buttonmoreplaylist ;
@@ -300,23 +300,32 @@ public class HomeFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
     void getPlaylist(){
-        for (int i = 0; i <100 ; i++) {
-            PLaylistModel pLaylistModel = new PLaylistModel();
-            pLaylistModel.setName("xxxxx");
-            listplaylist.add(pLaylistModel);
-        }
-        playlistAdapter.notifyDataSetChanged();
+        rvplaylist.removeAllViews();
+        listplaylist.clear();
+        String url= Config.ALLPLAYLIST;
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray jsonArray = response.getJSONArray("playlist");
+                for (int i = 0; i <jsonArray.length() ; i++) {
+                    JSONObject jsonObject= jsonArray.getJSONObject(i);
+                    PLaylistModel pLaylistModel = new PLaylistModel();
+                    pLaylistModel.setName(jsonObject.getString("name"));
+                    pLaylistModel.setImgurl(jsonObject.getString("cover"));
+                    pLaylistModel.setTotalsong(jsonObject.getInt("totalsong"));
+                    listplaylist.add(pLaylistModel);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            playlistAdapter.notifyDataSetChanged();
+
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 
     void getAlbum(){
-        for (int i = 0; i <100 ; i++) {
-            AlbumModel albumModel = new AlbumModel();
-            albumModel.setAlbumName("xxxxx");
-            listalbum.add(albumModel);
-        }
-        albumAdapter.notifyDataSetChanged();
-
-
         rvAlbum.removeAllViews();
         listalbum.clear();
         String url= Config.ALLALBUM;

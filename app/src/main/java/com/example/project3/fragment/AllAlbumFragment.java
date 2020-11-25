@@ -24,6 +24,8 @@ import com.example.project3.model.AlbumModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.Static.listalbum;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AllAlbumFragment#newInstance} factory method to
@@ -41,7 +43,6 @@ public class AllAlbumFragment extends Fragment {
     private String mParam2;
     RecyclerView recyclerView;
     AlbumAdapter albumAdapter;
-    List<AlbumModel> listalbum=new ArrayList<>();
     Context context;
     StickyScrollView stickyScrollView;
     public AllAlbumFragment() {
@@ -126,21 +127,8 @@ public class AllAlbumFragment extends Fragment {
         });
         recyclerView.setAdapter(albumAdapter);
 
-        getAllalbum();
 
     }
 
-    void getAllalbum(){
 
-        for (int i = 0; i < 100; i++) {
-            AlbumModel albumModel= new AlbumModel();
-            albumModel.setAlbumName("Album Name");
-            albumModel.setArtistName("artistname");
-            albumModel.setYears("2020");
-            listalbum.add(albumModel);
-
-        }
-
-        albumAdapter.notifyDataSetChanged();
-    }
 }

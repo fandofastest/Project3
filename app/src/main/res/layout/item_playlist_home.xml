@@ -8,7 +8,6 @@
 
 
     <com.makeramen.roundedimageview.RoundedImageView
-        app:riv_corner_radius="10sp"
         android:id="@+id/songimage"
         android:layout_width="133sp"
         android:layout_height="197sp"
@@ -19,6 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="10sp"
         app:srcCompat="@drawable/album" />
 
     <TextView
@@ -34,53 +34,32 @@
         app:layout_constraintStart_toStartOf="@+id/songimage"
         app:layout_constraintTop_toBottomOf="@+id/songimage" />
 
-    <TextView
-        android:id="@+id/totalplays"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="56M PLays - "
-        android:textColor="@color/textgrey"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton6"
-        app:layout_constraintStart_toEndOf="@+id/imageButton5"
-        app:layout_constraintTop_toBottomOf="@+id/playlist" />
 
-    <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="?selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/totalplays"
-        app:layout_constraintEnd_toStartOf="@+id/totalplays"
-        app:layout_constraintStart_toStartOf="@+id/songimage"
-        app:layout_constraintTop_toTopOf="@+id/totalplays"
-        app:srcCompat="@drawable/ic_headset" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/totalplays"
-        app:layout_constraintEnd_toStartOf="@+id/totalsong"
-        app:layout_constraintStart_toEndOf="@+id/totalplays"
-        app:layout_constraintTop_toTopOf="@+id/totalplays"
-        app:srcCompat="@drawable/ic_nada" />
-
-    <TextView
-        android:id="@+id/totalsong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:text="15 Songs"
-        android:textColor="@color/textgrey"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/totalplays"
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/songimage"
-        app:layout_constraintStart_toEndOf="@+id/imageButton6"
-        app:layout_constraintTop_toTopOf="@+id/totalplays" />
+        app:layout_constraintStart_toStartOf="@+id/songimage"
+        app:layout_constraintTop_toBottomOf="@+id/playlist">
+
+        <ImageButton
+            android:layout_marginEnd="10sp"
+            android:id="@+id/imageButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_nada" />
+
+        <TextView
+            android:id="@+id/totalsong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 Songs"
+            android:textColor="@color/textgrey"
+            android:textSize="10sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

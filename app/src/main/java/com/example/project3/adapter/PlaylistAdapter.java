@@ -68,15 +68,15 @@ public class PlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         PLaylistModel obj = items.get(position);
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
-//            Glide
-//                    .with(ctx)
-//                    .load(obj.getImgurl())
-//                    .centerCrop()
-//                    .into(view.image);
+            Glide
+                    .with(ctx)
+                    .load(obj.getImgurl())
+                    .centerCrop()
+                    .placeholder(R.drawable.album)
+                    .into(view.image);
 
 
             view.playlistname.setText(obj.getName());
-            view.image.setImageResource(R.drawable.album);
 
             if (obj.getTotalsong() < 1 ){
                 view.songcount.setText(obj.getTotalsong() +" Song");

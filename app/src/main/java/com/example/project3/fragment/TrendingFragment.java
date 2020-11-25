@@ -24,6 +24,8 @@ import com.synnapps.carouselview.ImageListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.Static.listtrending;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TrendingFragment#newInstance} factory method to
@@ -42,7 +44,6 @@ public class TrendingFragment extends Fragment {
     Context context;
     RecyclerView rvtrending;
     SongAdapterList songAdapterList;
-    List<SongModel>listtrending=new ArrayList<>();
     CarouselView carouselView;
     int[] imageslider = {R.drawable.imageslider, R.drawable.imageslider, R.drawable.imageslider, R.drawable.imageslider, R.drawable.imageslider};
 
@@ -109,7 +110,6 @@ public class TrendingFragment extends Fragment {
 
         });
         rvtrending.setAdapter(songAdapterList);
-        getSong();
     }
 
 
@@ -125,14 +125,5 @@ public class TrendingFragment extends Fragment {
         carouselView.setPageCount(imageslider.length);
     }
 
-    void getSong(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listtrending.add(songModel);
 
-        }
-        songAdapterList.notifyDataSetChanged();
-    }
 }

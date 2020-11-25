@@ -23,6 +23,8 @@ import com.example.project3.model.SongModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.Static.listnewmusic;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NewestFragment#newInstance} factory method to
@@ -41,7 +43,6 @@ public class NewestFragment extends Fragment {
     Context context;
     RecyclerView rvnewest;
     SongAdapterList songAdapterList;
-    List<SongModel> listnewest=new ArrayList<>();
     public NewestFragment() {
         // Required empty public constructor
     }
@@ -71,6 +72,7 @@ public class NewestFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        context=getContext();
     }
 
     @Override
@@ -87,7 +89,7 @@ public class NewestFragment extends Fragment {
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listnewest,R.layout.item_song_main,true);
+        songAdapterList = new SongAdapterList(context, listnewmusic,R.layout.item_song_main,true);
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -103,7 +105,6 @@ public class NewestFragment extends Fragment {
 
         });
         rvnewest.setAdapter(songAdapterList);
-        getSong();
         stickyScrollView=view.findViewById(R.id.scrolll);
         stickyScrollView.setScrollViewListener(new IScrollViewListener() {
             @Override
@@ -131,14 +132,4 @@ public class NewestFragment extends Fragment {
 
     }
 
-    void getSong(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listnewest.add(songModel);
-
-        }
-        songAdapterList.notifyDataSetChanged();
-    }
 }
