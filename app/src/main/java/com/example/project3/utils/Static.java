@@ -18,7 +18,17 @@ public class Static {
    public static     List<PLaylistModel> listplaylist = new ArrayList<>();
    public static     List<MyPlaylistModel> listmyplaylist = new ArrayList<>();
 
-   public static String homeTitle="Home";
+
+
+
+
+   public static  String MAINHOME="MAINHOME";
+
+   public static  String HOME="HOME";
+   public static  String PLAYER="PLAYER";
+   public static  String LIRIK="LIRIK";
+   public static  String EQ="EQ";
+
 
 
 

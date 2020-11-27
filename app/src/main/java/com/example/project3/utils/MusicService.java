@@ -38,7 +38,6 @@ public class MusicService extends Service {
     public  static String PLAYERSTATUS="STOP",REPEAT="OFF",SHUFFLE="OFF",CURRENTTYPE="OFF";
     public static int totalduration,currentduraiton,currentpos;
     String from;
-    public static String currenttitle,currentartist,currentimageurl,currentalbumname,curentgenre;
     public static SongModel currentsongModel;
     Realm realm;
     public  static int sessionId;
@@ -47,7 +46,7 @@ public class MusicService extends Service {
     public static BassBoost bassBoost;
     public static PresetReverb presetReverb;
     EqualizerModel equalizerModel;
-
+    public static String ctitle;
     //player
     private MediaPlayer mp = new MediaPlayer();
 
@@ -178,14 +177,9 @@ public class MusicService extends Service {
                 R.drawable.ic_pause_notif, currentpos, currentlist.size()-1);
 
         try {
-            final SongModel modelSong =currentlist.get(pos);
-            currentsongModel=modelSong;
-            currentartist=modelSong.getArtist();
-            currenttitle=modelSong.getTitle();
-            currentimageurl=modelSong.getImageurl();
-            currentalbumname=modelSong.getAlbum();
-            curentgenre=modelSong.getGenre();
-            lirikurl=modelSong.getLyric();
+            currentsongModel =currentlist.get(pos);
+            ctitle=currentsongModel.getTitle();
+            lirikurl=currentsongModel.getLyric();
 
             Intent intent = new Intent("musicplayer");
             intent.putExtra("status", "prepare");
@@ -193,7 +187,7 @@ public class MusicService extends Service {
             mp.stop();
             mp.reset();
             mp.release();
-            Uri myUri = Uri.parse(modelSong.getSongurl());
+            Uri myUri = Uri.parse(currentsongModel.getSongurl());
             mp = new MediaPlayer();
             mp.setDataSource(this, myUri);
             mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -224,7 +218,7 @@ public class MusicService extends Service {
                 @Override
                 public void onPrepared(MediaPlayer mplayer) {
                     RealmHelper realmHelper = new RealmHelper(getApplication());
-                    realmHelper.saverecent(modelSong);
+                    realmHelper.saverecent(currentsongModel);
                     sessionId=mp.getAudioSessionId();
                     if (mplayer.isPlaying()) {
                         mp.pause();

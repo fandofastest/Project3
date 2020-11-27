@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -19,13 +20,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatRatingBar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.bullhead.equalizer.DialogEqualizerFragment;
 import com.example.project3.BuildConfig;
 import com.example.project3.MainActivity;
 import com.example.project3.R;
+import com.example.project3.utils.MusicService;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import static android.widget.Toast.LENGTH_LONG;
 import static io.realm.Realm.getApplicationContext;
 
 public  class Dialog {
@@ -159,6 +175,81 @@ public  class Dialog {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+
+    }
+
+    public static void showEqialog(FragmentManager fm,Context context) {
+        int sesiid= MusicService.sessionId;
+        if (MusicService.PLAYERSTATUS.equals("STOP")){
+            sesiid=1;
+        }
+        Log.e("showEqialog", "showEqialog: "+sesiid);
+
+        DialogEqualizerFragment fragment = DialogEqualizerFragment.newBuilder()
+                .setAudioSessionId(sesiid)
+                .themeColor(ContextCompat.getColor(context, R.color.maincolour))
+                .textColor(ContextCompat.getColor(context, R.color.white))
+                .accentAlpha(ContextCompat.getColor(context, R.color.merah))
+                .darkColor(ContextCompat.getColor(context, R.color.merah))
+                .setAccentColor(ContextCompat.getColor(context, R.color.merah))
+                .build();
+        fragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragmentTheme);
+        fragment.show(fm, "fragment_edit_name");
+    }
+
+    public static void settimerdialog(Context context,FragmentManager fragmentManager) {
+        TimePickerDialog mDialogHourMinute;
+        Calendar calendar = Calendar.getInstance();
+
+
+
+
+        mDialogHourMinute = new TimePickerDialog.Builder()
+                .setType(Type.HOURS_MINS)
+                .setCancelStringId("Cancel")
+                .setSureStringId("Set")
+                .setTitleStringId("Sleep Time")
+                .setYearText("Year")
+                .setMonthText("Month")
+                .setDayText("Day")
+                .setHourText("Hour")
+                .setMinuteText("Minute")
+                .setCyclic(false)
+                .setThemeColor(context.getResources().getColor(R.color.timepicker_dialog_bg))
+                .setCallBack(new OnDateSetListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+
+                        Date d = new Date(millseconds);
+                        calendar.setTime(d);
+
+
+
+                        SimpleDateFormat sdfDate = new SimpleDateFormat("HH");
+                        SimpleDateFormat sdfmenit = new SimpleDateFormat("mm");
+                        String jam = sdfDate.format(d);
+                        String menit = sdfmenit.format(d);
+
+
+
+
+
+
+                        Intent intent = new Intent("musicplayer");
+                        intent.putExtra("status", "settimer");
+                        intent.putExtra("end", millseconds);
+
+                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                        Toast.makeText(getApplicationContext(), "Timer set : " + jam + "Hours " + menit + " Minutes", LENGTH_LONG).show();
+
+                    }
+                })
+                .build();
+
+        mDialogHourMinute.show(fragmentManager,"frament");
+
+
 
     }
 

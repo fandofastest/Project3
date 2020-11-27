@@ -20,9 +20,17 @@ import android.widget.ImageView;
 
 import com.amar.library.ui.StickyScrollView;
 import com.amar.library.ui.interfaces.IScrollViewListener;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Config;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +126,7 @@ public class PlaylistDetailFragment extends Fragment {
 
         });
         recyclerView.setAdapter(songAdapterList);
-        getSong();
+        getSong(mParam1);
         stickyScrollView=view.findViewById(R.id.scrolll);
         stickyScrollView.setScrollViewListener(new IScrollViewListener() {
             @Override
@@ -158,14 +166,39 @@ public class PlaylistDetailFragment extends Fragment {
         });
 
     }
-    void getSong(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listsong.add(songModel);
+    void getSong(String q){
+        recyclerView.removeAllViews();
+        listsong.clear();
+        String url= Config.DETAILPLAYLIST+q;
+        Log.e("getSong", "getSong: "+url );
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray jsonArray = response.getJSONArray("playlist");
+                for (int i = 0; i <jsonArray.length() ; i++) {
+                    JSONObject jsonObject= jsonArray.getJSONObject(i);
+                    SongModel modelSong = new SongModel();
+                    modelSong.setId(jsonObject.getInt("id"));
+                    modelSong.setSongurl(jsonObject.getString("filemp3"));
+                    modelSong.setLyric(jsonObject.getString("lyric"));
+                    modelSong.setDuration(jsonObject.getString("duration"));
+                    modelSong.setTitle(jsonObject.getString("songname"));
+                    modelSong.setGenre(jsonObject.getString("genrename"));
+                    modelSong.setImageurl(jsonObject.getString("songcover"));
+                    modelSong.setArtist(jsonObject.getString("artistname"));
+                    modelSong.setAlbum(jsonObject.getString("albumname"));
+                    modelSong.setYears(jsonObject.getString("year"));
+                    modelSong.setAlbumcover(jsonObject.getString("albumcover"));
+                    modelSong.setPlays(jsonObject.getInt("plays"));
+                    listsong.add(modelSong);
+                }
 
-        }
-        songAdapterList.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            songAdapterList.notifyDataSetChanged();
+
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 }

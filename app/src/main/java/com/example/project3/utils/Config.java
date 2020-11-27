@@ -8,6 +8,7 @@ public class Config {
     public static String NEWMUSIC=BASEURL;
     public static String ALLPLAYLIST=BASEURL+"getallplaylist";
     public static String ALBUMDETAIL=BASEURL+"album/";
+    public static String SEARCH=BASEURL+"find/";
     public static String DETAILPLAYLIST=BASEURL+"playlistsong/";
 }
 

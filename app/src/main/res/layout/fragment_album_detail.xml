@@ -78,12 +78,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/boxtitle"
                     android:layout_width="match_parent"
-                    android:layout_height="170sp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="30sp"
                     android:layout_marginRight="30sp"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_corner_radius="10sp"
                         android:id="@+id/albumimage"
                         android:layout_width="131sp"
                         android:layout_height="170sp"
@@ -157,7 +158,10 @@
                         app:layout_constraintStart_toStartOf="@+id/buttonplaymusic"
                         app:layout_constraintTop_toBottomOf="@+id/buttonplaymusic" />
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_border_color="#000000"
+                        app:riv_border_width="4dip"
+                        app:riv_oval="true"
                         android:id="@+id/artistalbum"
                         android:layout_width="64sp"
                         android:layout_height="64sp"

@@ -1,4 +1,4 @@
-package com.example.project3.utils;
+package com.example.project3.helper;
 
 import android.content.Context;
 
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LyricHelper  {
+public class LyricHelper {
 
     private static final String CHARSET = "utf-8";
     //[03:56.00][03:18.00][02:06.00][01:07.00]原谅我这一生不羁放纵爱自由

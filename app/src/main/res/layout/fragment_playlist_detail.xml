@@ -78,7 +78,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/boxtitle"
                     android:layout_width="match_parent"
-                    android:layout_height="170sp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="30sp"
                     android:layout_marginRight="30sp"
                     android:orientation="vertical">
@@ -156,7 +156,6 @@
                         android:src="@drawable/ic_libutton"
                         app:layout_constraintStart_toStartOf="@+id/buttonplaymusic"
                         app:layout_constraintTop_toBottomOf="@+id/buttonplaymusic" />
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

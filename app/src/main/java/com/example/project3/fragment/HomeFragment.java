@@ -27,6 +27,7 @@ import com.example.project3.adapter.AlbumAdapter;
 import com.example.project3.adapter.PlaylistAdapter;
 import com.example.project3.adapter.SongAdapter;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.AlbumModel;
 import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.MusicService.currentlist;
 import static com.example.project3.utils.Static.listalbum;
 import static com.example.project3.utils.Static.listnewmusic;
 import static com.example.project3.utils.Static.listplaylist;
@@ -66,7 +68,7 @@ public class HomeFragment extends Fragment {
     PlaylistAdapter playlistAdapter;
     AlbumAdapter albumAdapter;
     Context context;
-
+    String title ;
 
     ImageButton buttonmoretrending,buttonmorenewest,buttonmorealbum,buttonmoreplaylist ;
 
@@ -100,6 +102,10 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         context=getContext();
+        title=getString(R.string.app_name);
+        ((MainActivity) getActivity()).setTitleToolbar(title);
+
+
     }
 
     @Override
@@ -116,16 +122,14 @@ public class HomeFragment extends Fragment {
         rvrecent=view.findViewById(R.id.recyclerViewrecent);
         rvrecent.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
         rvrecent.setHasFixedSize(true);
+
         //set data and list adapter
         trendingAdapter = new SongAdapter(context, listtrending);
         trendingAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
-                Intent intent = new Intent(context, PlayerActivity.class);
-                startActivity(intent);
-
-
+                PlayerHelper.playmusic(context,position);
+                currentlist=listtrending;
             }
 
             @Override
@@ -169,6 +173,7 @@ public class HomeFragment extends Fragment {
         //set data and list adapter
         playlistAdapter = new PlaylistAdapter(context, listplaylist);
         playlistAdapter.setOnItemClickListener(( obj, position) -> {
+            ((MainActivity) getActivity()).loadFragment(PlaylistDetailFragment.newInstance(String.valueOf(obj.getId()),""),"");
 
 
         });
@@ -182,11 +187,13 @@ public class HomeFragment extends Fragment {
         //set data and list adapter
         albumAdapter = new AlbumAdapter(context, listalbum,R.layout.item_album);
         albumAdapter.setOnItemClickListener(( obj, position) -> {
+            ((MainActivity) getActivity()).loadFragment(AlbumDetailFragment.newInstance(obj.getId(),obj),"");
 
 
         });
         rvAlbum.setAdapter(albumAdapter);
        getAlbum();
+
 
     }
 
@@ -309,6 +316,7 @@ public class HomeFragment extends Fragment {
                 for (int i = 0; i <jsonArray.length() ; i++) {
                     JSONObject jsonObject= jsonArray.getJSONObject(i);
                     PLaylistModel pLaylistModel = new PLaylistModel();
+                    pLaylistModel.setId(jsonObject.getInt("id"));
                     pLaylistModel.setName(jsonObject.getString("name"));
                     pLaylistModel.setImgurl(jsonObject.getString("cover"));
                     pLaylistModel.setTotalsong(jsonObject.getInt("totalsong"));

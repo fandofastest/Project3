@@ -10,6 +10,7 @@
     tools:context=".fragment.LibraryFragment">
 
     <com.google.android.material.tabs.TabLayout
+        android:background="@android:color/transparent"
         app:tabInlineLabel="true"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"

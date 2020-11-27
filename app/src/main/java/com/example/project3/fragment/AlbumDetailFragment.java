@@ -20,12 +20,24 @@ import android.widget.ImageView;
 
 import com.amar.library.ui.StickyScrollView;
 import com.amar.library.ui.interfaces.IScrollViewListener;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.model.AlbumModel;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Config;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.project3.utils.Static.listtrending;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,11 +49,12 @@ public class AlbumDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ALBUM = "album";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    AlbumModel albumModel;
     ImageView artistcover,albumcover;
     Context context;
     RecyclerView recyclerView;
@@ -58,15 +71,14 @@ public class AlbumDetailFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment AlbumDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AlbumDetailFragment newInstance(String param1, String param2) {
+    public static AlbumDetailFragment newInstance(String param1, AlbumModel albumModel){
         AlbumDetailFragment fragment = new AlbumDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(ALBUM, albumModel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,9 +88,14 @@ public class AlbumDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam2 = getArguments().getString(ALBUM);
         }
         context=getContext();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            albumModel = bundle.getParcelable(ALBUM); // Key
+        }
+
     }
 
     @Override
@@ -96,6 +113,17 @@ public class AlbumDetailFragment extends Fragment {
         playbut=view.findViewById(R.id.buttonplaymusic);
         libbut=view.findViewById(R.id.libbutton);
 
+        Glide
+                .with(context)
+                .load(albumModel.getImageUrl())
+                .centerCrop()
+                .into(albumcover);
+
+        Glide
+                .with(context)
+                .load(albumModel.getArtistcover())
+                .centerCrop()
+                .into(artistcover);
 
 
 
@@ -119,7 +147,7 @@ public class AlbumDetailFragment extends Fragment {
 
         });
         recyclerView.setAdapter(songAdapterList);
-        getSong();
+        getSong(mParam1);
         stickyScrollView=view.findViewById(R.id.scrolll);
         stickyScrollView.setScrollViewListener(new IScrollViewListener() {
             @Override
@@ -135,6 +163,7 @@ public class AlbumDetailFragment extends Fragment {
                     constraintSet.clone(constraintLayout);
                     constraintSet.connect(R.id.libbutton,ConstraintSet.START,R.id.buttonplaymusic,ConstraintSet.START,0);
                     constraintSet.connect(R.id.libbutton,ConstraintSet.TOP,R.id.buttonplaymusic,ConstraintSet.BOTTOM,30);
+
                     constraintSet.applyTo(constraintLayout);
 
                 }
@@ -162,14 +191,39 @@ public class AlbumDetailFragment extends Fragment {
         });
     }
 
-    void getSong(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listsong.add(songModel);
+    void getSong(String q){
+        recyclerView.removeAllViews();
+        listsong.clear();
+        String url= Config.ALBUMDETAIL+q;
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray jsonArray = response.getJSONArray("song");
+                for (int i = 0; i <jsonArray.length() ; i++) {
+                    JSONObject jsonObject= jsonArray.getJSONObject(i);
+                    SongModel modelSong = new SongModel();
+                    modelSong.setId(jsonObject.getInt("id"));
+                    modelSong.setSongurl(jsonObject.getString("filemp3"));
+                    modelSong.setLyric(jsonObject.getString("lyric"));
+                    modelSong.setDuration(jsonObject.getString("duration"));
+                    modelSong.setTitle(jsonObject.getString("songname"));
+                    modelSong.setGenre(jsonObject.getString("genrename"));
+                    modelSong.setImageurl(jsonObject.getString("songcover"));
+                    modelSong.setArtist(jsonObject.getString("artistname"));
+                    modelSong.setAlbum(jsonObject.getString("albumname"));
+                    modelSong.setYears(jsonObject.getString("year"));
+                    modelSong.setAlbumcover(jsonObject.getString("albumcover"));
+                    modelSong.setPlays(jsonObject.getInt("plays"));
 
-        }
-        songAdapterList.notifyDataSetChanged();
+                    listsong.add(modelSong);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            songAdapterList.notifyDataSetChanged();
+
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 }

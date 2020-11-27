@@ -5,20 +5,34 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.project3.MainActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Config;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.project3.utils.Static.listtrending;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,6 +100,12 @@ public class DiscoverFragment extends Fragment {
         recyclerView=view.findViewById(R.id.rvsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
+
+
+
+        if (listsearch.size()==0){
+            listsearch=listtrending;
+        }
         //set data and list adapter
         songAdapterList = new SongAdapterList(context, listsearch,R.layout.item_song_main,false);
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
@@ -103,17 +123,68 @@ public class DiscoverFragment extends Fragment {
 
         });
         recyclerView.setAdapter(songAdapterList);
-        getSong();
+
+        SearchView searchView=view.findViewById(R.id.searchview);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getSong(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Handler mHandler= new Handler();
+                mHandler.removeCallbacksAndMessages(null);
+
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSong(newText);
+                        //Put your call to the server here (with mQueryString)
+                    }
+                }, 1000);
+                return false;
+            }
+        });
+
 
     }
-    void getSong(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listsearch.add(songModel);
 
-        }
-        songAdapterList.notifyDataSetChanged();
+    void getSong(String q){
+        recyclerView.removeAllViews();
+        listsearch.clear();
+        String url= Config.SEARCH+q;
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONArray jsonArray = response.getJSONArray("song");
+                for (int i = 0; i <jsonArray.length() ; i++) {
+                    JSONObject jsonObject= jsonArray.getJSONObject(i);
+                    SongModel modelSong = new SongModel();
+                    modelSong.setId(jsonObject.getInt("id"));
+                    modelSong.setSongurl(jsonObject.getString("filemp3"));
+                    modelSong.setLyric(jsonObject.getString("lyric"));
+                    modelSong.setDuration(jsonObject.getString("duration"));
+                    modelSong.setTitle(jsonObject.getString("songname"));
+                    modelSong.setGenre(jsonObject.getString("genrename"));
+                    modelSong.setImageurl(jsonObject.getString("songcover"));
+                    modelSong.setArtist(jsonObject.getString("artistname"));
+                    modelSong.setAlbum(jsonObject.getString("albumname"));
+                    modelSong.setYears(jsonObject.getString("year"));
+                    modelSong.setAlbumcover(jsonObject.getString("albumcover"));
+                    modelSong.setPlays(jsonObject.getInt("plays"));
+
+                    listsearch.add(modelSong);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            songAdapterList.notifyDataSetChanged();
+
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
+
 }

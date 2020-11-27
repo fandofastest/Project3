@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".playerfragment.LirikFragment">
+
+
+    <TextView
+        android:id="@+id/liriktitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/nsbold"
+        android:text="title"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lirikartist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/nsregular"
+        android:text="ARtist"
+        android:textColor="@color/textgrey"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/likikview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liriktitle" />
+
+
+    <com.lauzy.freedom.library.LrcView
+        android:id="@+id/likikview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/banner_container"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:currentIndicateLrcColor="@color/colorAccent"
+        app:indicatorTextColor="@color/merah"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lirikartist"
+        app:lrcCurrentTextColor="@color/merah"
+        app:lrcNormalTextColor="#FFFFFF"
+        app:lrcTextSize="14sp"
+        app:noLrcTextColor="@color/white"
+        app:playIcon="@drawable/ic_playicon"
+        tools:lrcNormalTextColor="@android:color/white" />
+</androidx.constraintlayout.widget.ConstraintLayout>

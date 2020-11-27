@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolbar();
         initbottomnavigation();
-        loadFragment(HomeFragment.newInstance("", ""), "App Name");
-
+        loadFragment(HomeFragment.newInstance("", ""), getString(R.string.app_name));
 
 
 
@@ -109,9 +108,10 @@ public class MainActivity extends AppCompatActivity {
     private void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
         titleToolbar = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        titleToolbar.setText("App name");
+        titleToolbar.setText(getString(R.string.app_name));
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setTitle("");
         actionBar.setDisplayHomeAsUpEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -122,6 +122,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        if (titleToolbar.getText().equals(getString(R.string.app_name))){
+           Dialog.showExitDialog(MainActivity.this,MainActivity.this);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+
+    public void setTitleToolbar(String mytitle){
+        titleToolbar.setText(mytitle);
+        if (mytitle.equals(getString(R.string.app_name))){
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
+        else {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        }
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mymenu = menu;
@@ -130,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
 
          setting = menu.findItem(R.id.action_setting);
-         setting.setVisible(true);
+         setting.setVisible(false);
 
 
         return true;
@@ -153,19 +178,19 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home:
-                    loadFragment(HomeFragment.newInstance("",""),"App Name");
+                    loadFragment(HomeFragment.newInstance("",""),getString(R.string.app_name));
 //                    titleToolbar.setText(getString(R.string.app_name));
-                    actionBar.setDisplayHomeAsUpEnabled(false);
+//                    actionBar.setDisplayHomeAsUpEnabled(false);
                     setting.setVisible(false);
                     return true;
                 case R.id.discover:
                     loadFragment(DiscoverFragment.newInstance("",""),"Search");
-                    actionBar.setDisplayHomeAsUpEnabled(true);
+//                    actionBar.setDisplayHomeAsUpEnabled(true);
                     setting.setVisible(true);
                     return true;
                 case R.id.library:
                     loadFragment(LibraryFragment.newInstance("",""),"Library");
-                    actionBar.setDisplayHomeAsUpEnabled(true);
+//                    actionBar.setDisplayHomeAsUpEnabled(true);
                     setting.setVisible(true);
 
                     return true;
