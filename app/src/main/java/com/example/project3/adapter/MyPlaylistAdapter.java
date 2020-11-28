@@ -20,6 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project3.R;
 import com.example.project3.model.MyPlaylistModel;
+import com.example.project3.utils.RealmHelper;
+import com.skydoves.powermenu.MenuAnimation;
+import com.skydoves.powermenu.PowerMenu;
+import com.skydoves.powermenu.PowerMenuItem;
 
 
 import java.util.ArrayList;
@@ -94,6 +98,7 @@ public class MyPlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             view.itemlayout.setOnClickListener(view1 -> {
                 if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(obj,position);
 
                 }
                 notifyDataSetChanged();
@@ -102,35 +107,37 @@ public class MyPlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             view.menuly.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    PowerMenu powerMenu = new PowerMenu.Builder(ctx)
-//                            .addItem(new PowerMenuItem("Remove", false)) // aad an item list.
-//                            .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
-//                            .setMenuRadius(10f) // sets the corner radius.
-//                            .setMenuShadow(10f) // sets the shadow.
-//                            .setTextColor(ContextCompat.getColor(ctx, R.color.white))
-//                            .setTextGravity(Gravity.LEFT)
-//                            .setTextTypeface(ResourcesCompat.getFont(ctx, R.font.ubuntu))
-//                            .setSelectedTextColor(ContextCompat.getColor(ctx, R.color.blue))
-//                            .setSelectedMenuColor(ContextCompat.getColor(ctx,R.color.bluesoft))
-//                            .setMenuColor(ContextCompat.getColor(ctx, R.color.bluesoft))
-//                            .build();
-//
-//                    powerMenu.setOnMenuItemClickListener((position1, item) -> {
-//                        if (item.getTitle().equals("Remove")){
-//                            RealmHelper realmHelper= new RealmHelper(ctx);
-//                            realmHelper.deletePlaylist(obj.getId());
-//                            realmHelper.setMyRealmListener(new RealmHelper.MyRealmListener() {
-//                                @Override
-//                                public void onsuccess() {
-//                                    notifyDataSetChanged();
-//                                }
-//                            });
-//
-//                            powerMenu.dismiss();
-//
-//                        }
-//                    });
-//                    powerMenu.showAsDropDown(view); // view is an anchor
+                    PowerMenu powerMenu = new PowerMenu.Builder(ctx)
+                            .addItem(new PowerMenuItem("Remove playlist", false)) // aad an item list.
+                            .addItem(new PowerMenuItem("Share", false)) // aad an item list.
+                            .addItem(new PowerMenuItem("Rate App", false)) // aad an item list.
+                            .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
+                            .setMenuRadius(10f) // sets the corner radius.
+                            .setMenuShadow(10f) // sets the shadow.
+                            .setTextColor(ContextCompat.getColor(ctx, R.color.white))
+                            .setTextGravity(Gravity.LEFT)
+                            .setTextTypeface(ResourcesCompat.getFont(ctx, R.font.nsregular))
+                            .setSelectedTextColor(ContextCompat.getColor(ctx, R.color.merah))
+                            .setSelectedMenuColor(ContextCompat.getColor(ctx,R.color.maincolour))
+                            .setMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
+                            .build();
+
+                    powerMenu.setOnMenuItemClickListener((position1, item) -> {
+                        if (item.getTitle().equals("Remove playlist")){
+                            RealmHelper realmHelper= new RealmHelper(ctx);
+                            realmHelper.deletePlaylist(obj.getId());
+                            realmHelper.setMyRealmListener(new RealmHelper.MyRealmListener() {
+                                @Override
+                                public void onsuccess() {
+                                    notifyDataSetChanged();
+                                }
+                            });
+
+                            powerMenu.dismiss();
+
+                        }
+                    });
+                    powerMenu.showAsDropDown(view); // view is an anchor
 
                 }
             });

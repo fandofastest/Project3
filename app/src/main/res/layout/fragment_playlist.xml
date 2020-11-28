@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <ImageButton
-        android:id="@+id/imageButton10"
+        android:id="@+id/createplaylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -44,9 +44,9 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/nsregular"
         android:text="Create playlist"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton10"
-        app:layout_constraintStart_toEndOf="@+id/imageButton10"
-        app:layout_constraintTop_toTopOf="@+id/imageButton10" />
+        app:layout_constraintBottom_toBottomOf="@+id/createplaylist"
+        app:layout_constraintStart_toEndOf="@+id/createplaylist"
+        app:layout_constraintTop_toTopOf="@+id/createplaylist" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

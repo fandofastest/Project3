@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,12 @@ import android.view.ViewGroup;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.RealmHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.project3.utils.Static.listfav;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +42,6 @@ public class FavoriteFragment extends Fragment {
     Context context;
     RecyclerView rvfav;
     SongAdapterList songAdapterList;
-    List<SongModel> listfav=new ArrayList<>();
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -86,7 +89,7 @@ public class FavoriteFragment extends Fragment {
         rvfav.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvfav.setHasFixedSize(true);
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listfav,R.layout.item_song_main,true);
+        songAdapterList = new SongAdapterList(context, listfav,R.layout.item_song_main,true,getActivity());
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -106,13 +109,11 @@ public class FavoriteFragment extends Fragment {
 
     }
     void getSong(){
-        for (int i = 0; i <100 ; i++) {
-            SongModel songModel = new SongModel();
-            songModel.setTitle("xxxxx");
-            songModel.setArtist("artisty xxxx");
-            listfav.add(songModel);
+        RealmHelper realmHelper= new RealmHelper(context);
+        listfav= realmHelper.getSongsbyPlaylistid("1");
 
-        }
+        Log.e("getSong", "getSong: "+listfav.size() );
         songAdapterList.notifyDataSetChanged();
+
     }
 }

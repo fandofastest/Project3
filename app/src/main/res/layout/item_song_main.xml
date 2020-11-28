@@ -93,11 +93,12 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20sp"
+        android:layout_height="50sp"
         android:layout_marginStart="23dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/titlesong"
@@ -113,5 +114,5 @@
         app:layout_constraintEnd_toStartOf="@+id/more"
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:srcCompat="@drawable/ic_barplay"
-        tools:visibility="gone" />
+        tools:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

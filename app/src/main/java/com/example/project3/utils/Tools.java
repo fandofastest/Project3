@@ -120,6 +120,10 @@ public class  Tools {
         }
     }
 
+    public static int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+
     public static void displayImage(Context ctx, ImageView img, String imgurl) {
         try {
             Glide.with(ctx).load(imgurl)

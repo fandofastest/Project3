@@ -1,6 +1,7 @@
 package com.example.project3.fragment.libraryfragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,19 +10,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.example.project3.MainActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.MyPlaylistAdapter;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.fragment.AlbumDetailFragment;
 import com.example.project3.model.MyPlaylistModel;
 import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.RealmHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.widget.Toast.LENGTH_LONG;
+import static com.example.project3.utils.Static.listmyplaylist;
+import static io.realm.Realm.getApplicationContext;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,9 +53,9 @@ public class MyPlaylistFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     Context context;
+    ImageButton createpl;
     RecyclerView rvplaylist;
     MyPlaylistAdapter myPlaylistAdapter;
-    List<MyPlaylistModel> listmyplaylist=new ArrayList<>();
 
     public MyPlaylistFragment() {
         // Required empty public constructor
@@ -72,6 +86,8 @@ public class MyPlaylistFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        context=getContext();
+
     }
 
     @Override
@@ -93,22 +109,78 @@ public class MyPlaylistFragment extends Fragment {
             @Override
             public void onItemClick(MyPlaylistModel obj, int position) {
 
+                ((MainActivity) getActivity()).loadFragment(MyPlaylistDetailFragment.newInstance(obj),"");
+
+
             }
         });
         rvplaylist.setAdapter(myPlaylistAdapter);
-        getMyPlaylist();
+
+        createpl=view.findViewById(R.id.createplaylist);
+
+        createpl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCreateDialog();
+
+            }
+        });
+
 
 
 
     }
-    void getMyPlaylist(){
-        for (int i = 0; i <100 ; i++) {
-            MyPlaylistModel pLaylistModel = new MyPlaylistModel();
-            pLaylistModel.setName("xxxxx");
-            pLaylistModel.setTotalsong(100);
-            listmyplaylist.add(pLaylistModel);
 
-        }
-        myPlaylistAdapter.notifyDataSetChanged();
+    public  void showCreateDialog(){
+        final android.app.Dialog dialog = new android.app.Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_createplaylist);
+        dialog.setCancelable(true);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                EditText inputtext =dialog.findViewById(R.id.inputplaylist);
+
+                inputtext.setFocusable(true);
+                inputtext.requestFocus();
+                dialog.findViewById(R.id.submit).setOnClickListener(v -> {
+                    String newplaylist =inputtext.getText().toString();
+                    createPlaylist(newplaylist);
+                    dialog.dismiss();
+                });
+                dialog.findViewById(R.id.cancel_action).setOnClickListener(v -> {
+                    dialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Dismiss", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+
+
     }
+
+
+
+    public void createPlaylist(String playlistname){
+        MyPlaylistModel myPlaylistModel= new MyPlaylistModel();
+        myPlaylistModel.setName(playlistname);
+        myPlaylistModel.setTotalsong(0);
+        RealmHelper realmHelper = new RealmHelper(context);
+        realmHelper.creatnewplaylist(myPlaylistModel);
+        realmHelper.setMyRealmListener(() -> {
+            Toast.makeText(context,"Success",LENGTH_LONG).show();
+            myPlaylistAdapter.notifyDataSetChanged();
+
+        });
+
+    }
+
+
+
+
 }

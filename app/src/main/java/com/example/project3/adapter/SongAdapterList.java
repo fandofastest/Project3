@@ -1,7 +1,9 @@
 package com.example.project3.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.project3.R;
+import com.example.project3.helper.Dialog;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.RealmHelper;
 import com.example.project3.utils.Tools;
+import com.skydoves.powermenu.MenuAnimation;
+import com.skydoves.powermenu.PowerMenu;
+import com.skydoves.powermenu.PowerMenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +32,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<SongModel> items = new ArrayList<>();
     int  selectedKey =-1;
     Context ctx;
+    Activity activity;
     private OnItemClickListener mOnItemClickListener;
     int layout;
     boolean paddingfirst;
@@ -37,10 +46,11 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public SongAdapterList(Context context, List<SongModel> items,int layout,boolean paddingfirst) {
+    public SongAdapterList(Context context, List<SongModel> items,int layout,boolean paddingfirst,Activity activity) {
         this.items = items;
         this.layout=layout;
         this.paddingfirst=paddingfirst;
+        this.activity=activity;
         ctx = context;
     }
 
@@ -49,17 +59,23 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public View lyt_parent;
         public TextView artistname;
         public TextView songtitle;
+        public  TextView totalplays;
+        public TextView dura;
         public ImageView imageView;
-        public ImageView songactive;
+        public ImageView songactive,lirik;
         public ImageButton more;
         public TextView no;
         public OriginalViewHolder(View v) {
             super(v);
-
+            lirik=v.findViewById(R.id.imageView5);
+            totalplays=v.findViewById(R.id.totalplays);
+            dura=v.findViewById(R.id.duration);
+            songactive=v.findViewById(R.id.playbar);
             songtitle=v.findViewById(R.id.titlesong);
             artistname=v.findViewById(R.id.artist);
             imageView=v.findViewById(R.id.imageView3);
             lyt_parent=v.findViewById(R.id.mainly);
+            more=v.findViewById(R.id.more);
             no=v.findViewById(R.id.no);
 
         }
@@ -103,46 +119,95 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 System.out.println(e);
 
             }
-            view.songtitle.setText(obj.getTitle());
+
 
             view.no.setText(Tools.parsenumber(position+1));
 
             if (!(layout==R.layout.item_song_list_home)){
+                view.songtitle.setText(obj.getTitle());
+                view.songactive.setVisibility(View.INVISIBLE);
+                view.totalplays.setText(obj.getPlays()+" Plays");
+                view.dura.setText(obj.getDuration());
                 if (!(selectedKey == -1)) {
                     if (position != selectedKey) {
-                        view.songactive.setVisibility(View.GONE);
+                        view.songactive.setVisibility(View.INVISIBLE);
                         view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+                        view.totalplays.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+                        view.dura.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+                        view.lirik.setImageResource(R.drawable.ic_lirikgrey);
+
 
                     } else {
                         view.songactive.setVisibility(View.VISIBLE);
-                        view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.purple_200));
+                        view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
+                        view.totalplays.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
+                        view.dura.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
+                        view.lirik.setImageResource(R.drawable.lirik);
+
+
 
                     }
                 }
 
+                view.more.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        PowerMenuItem myitem = null;
+                        RealmHelper realmHelper = new RealmHelper(ctx);
+
+                        boolean isfav= realmHelper.checkIsFav(obj.getId());
+
+                        if (isfav){
+                            myitem= new PowerMenuItem("Favorite", true);
+                        }
+                        else {
+                            myitem= new PowerMenuItem("Add to Favorite", false);
+                        }
+
+                        PowerMenu powerMenu = new PowerMenu.Builder(ctx)
+                                .addItem(myitem) // add an item.
+                                .addItem(new PowerMenuItem("Add to Playlist", false)) // aad an item list.
+                                .addItem(new PowerMenuItem("Share", false)) // aad an item list.
+                                .addItem(new PowerMenuItem("Rate this App", false)) // aad an item list.
+                                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
+                                .setMenuRadius(10f) // sets the corner radius.
+                                .setMenuShadow(10f) // sets the shadow.
+                                .setTextColor(ContextCompat.getColor(ctx, R.color.white))
+                                .setTextGravity(Gravity.LEFT)
+                                .setTextTypeface(ResourcesCompat.getFont(ctx, R.font.nsregular))
+                                .setSelectedTextColor(ContextCompat.getColor(ctx, R.color.merah))
+                                .setMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
+                                .setSelectedMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
+                                .build();
+
+                        powerMenu.setOnMenuItemClickListener((position1, item) -> {
+                            if (position1 ==0){
+
+                                realmHelper.actionfav(obj,isfav);
+                                notifyDataSetChanged();
+                            }
+                            else if (position1==1){
+//                            ((MainActivity)ctx).showPlaylist(String.valueOf(obj.getId()));
+
+                            }
+                            else if (position1 == 2) {
+                                Dialog.sharedialog(ctx);
+
+                            } else if (position1 == 3) {
+
+                                Dialog.ratedialog(ctx,activity);
+
+                            }
+
+                            powerMenu.dismiss();
+                        });
+                        powerMenu.showAsDropDown(view);
+                    }
+                });
 
             }
 
-//            if (menu==0){
-//                view.more.setVisibility(View.GONE);
-//            }
-//            view.more.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    PopupMenu popup = new PopupMenu(ctx,view , Gravity.CENTER, R.style.PopupMenu, R.style.PopupMenu);
-//                    popup.getMenuInflater().inflate(R.menu.playlist_menu, popup.getMenu());
-//                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                        public boolean onMenuItemClick(MenuItem item) {
-//                            if (item.getTitle().equals("Remove")) {
-//                                mOnItemClickListener.onMoreClick(obj);
-//                                notifyDataSetChanged();
-//                            }
-//                            return true;
-//                        }
-//                    });
-//                    popup.show();
-//                }
-//            });
+
 
 
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +218,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     notifyDataSetChanged();
 
                     if (mOnItemClickListener != null) {
-//                        mOnItemClickListener.onItemClick(position);
+                        mOnItemClickListener.onItemClick(position);
 
                     }
                 }

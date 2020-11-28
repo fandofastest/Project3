@@ -17,6 +17,8 @@ public class Static {
    public static List<SongModel> listsongcurrentplaylist = new ArrayList<>();
    public static     List<PLaylistModel> listplaylist = new ArrayList<>();
    public static     List<MyPlaylistModel> listmyplaylist = new ArrayList<>();
+   public static  List<SongModel> listfav=new ArrayList<>();
+
 
 
 

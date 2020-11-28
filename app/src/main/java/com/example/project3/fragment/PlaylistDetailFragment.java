@@ -17,16 +17,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amar.library.ui.StickyScrollView;
 import com.amar.library.ui.interfaces.IScrollViewListener;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.helper.PlayerHelper;
+import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
 import com.example.project3.utils.Config;
+import com.example.project3.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +39,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.project3.utils.MusicService.currentlist;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,12 +52,12 @@ public class PlaylistDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String PLAYLIST = "playlist";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    TextView playlistname,totalsong;
     ImageView playlistcover;
     Context context;
     RecyclerView recyclerView;
@@ -58,6 +65,7 @@ public class PlaylistDetailFragment extends Fragment {
     SongAdapterList songAdapterList;
     List<SongModel> listsong= new ArrayList<>();
     StickyScrollView stickyScrollView;
+    PLaylistModel pLaylistModel;
 
     public PlaylistDetailFragment() {
         // Required empty public constructor
@@ -68,15 +76,14 @@ public class PlaylistDetailFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment PlaylistDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PlaylistDetailFragment newInstance(String param1, String param2) {
+    public static PlaylistDetailFragment newInstance(String param1, PLaylistModel pLaylistModel) {
         PlaylistDetailFragment fragment = new PlaylistDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(PLAYLIST, pLaylistModel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,9 +93,13 @@ public class PlaylistDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
         context=getContext();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            pLaylistModel = bundle.getParcelable(PLAYLIST); // Key
+        }
+
 
     }
 
@@ -105,16 +116,32 @@ public class PlaylistDetailFragment extends Fragment {
         playlistcover=view.findViewById(R.id.albumimage);
         playbut=view.findViewById(R.id.buttonplaymusic);
         libbut=view.findViewById(R.id.libbutton);
+        playlistname=view.findViewById(R.id.playlistname);
+        totalsong=view.findViewById(R.id.textView17);
+        playlistname.setText(pLaylistModel.getName());
+        totalsong.setText(String.valueOf(pLaylistModel.getTotalsong()));
+        Glide
+                .with(context)
+                .load(pLaylistModel.getImgurl())
+                .centerCrop()
+                .into(playlistcover);
+
+        playbut.setOnClickListener(v -> {
+            PlayerHelper.playmusic(context, Tools.getRandomNumber(0,listsong.size()));
+            currentlist=listsong;
+
+        });
 
         recyclerView=view.findViewById(R.id.rvplaylist);
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listsong,R.layout.item_song_main,true);
+        songAdapterList = new SongAdapterList(context, listsong,R.layout.item_song_main,true,getActivity());
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
+                PlayerHelper.playmusic(context, position);
+                currentlist=listsong;
 
             }
 

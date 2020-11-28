@@ -23,10 +23,14 @@ import com.example.project3.fragment.DiscoverFragment;
 import com.example.project3.fragment.HomeFragment;
 import com.example.project3.fragment.LibraryFragment;
 import com.example.project3.helper.Dialog;
+import com.example.project3.utils.RealmHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.skydoves.powermenu.MenuAnimation;
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
+
+import static com.example.project3.utils.Static.listfav;
+import static com.example.project3.utils.Static.listmyplaylist;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -45,7 +49,14 @@ public class MainActivity extends AppCompatActivity {
         initbottomnavigation();
         loadFragment(HomeFragment.newInstance("", ""), getString(R.string.app_name));
 
+        getdblist();
 
+    }
+
+    void getdblist(){
+        RealmHelper realmHelper = new RealmHelper(MainActivity.this);
+        listmyplaylist=realmHelper.getallPlaylist();
+        listfav=realmHelper.getSongsbyPlaylistid("1");
 
     }
 

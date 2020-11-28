@@ -14,6 +14,8 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
+import static com.example.project3.utils.Static.listmyplaylist;
+
 public class RealmHelper {
 
     Realm realm;
@@ -187,16 +189,19 @@ public class RealmHelper {
                 .equalTo("playlistid", playlistId)
                 .findAll();
         return results;
+
     }
 
 
 
 
 
-    public void getallPlaylist() {
+    public  List<MyPlaylistModel>  getallPlaylist() {
+
         RealmResults<MyPlaylistModel> results = realm.where(MyPlaylistModel.class)
                 .findAll();
-        Static.listmyplaylist=results;
+        return results;
+
     }
 
 

@@ -13,17 +13,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.amar.library.ui.StickyScrollView;
 import com.amar.library.ui.interfaces.IScrollViewListener;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.MusicService.currentlist;
 import static com.example.project3.utils.Static.listnewmusic;
+import static com.example.project3.utils.Static.listtrending;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +47,7 @@ public class NewestFragment extends Fragment {
     private String mParam2;
     Context context;
     RecyclerView rvnewest;
+    ImageButton playrandom;
     SongAdapterList songAdapterList;
     public NewestFragment() {
         // Required empty public constructor
@@ -85,15 +91,17 @@ public class NewestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        playrandom=view.findViewById(R.id.imageButton7);
         rvnewest=view.findViewById(R.id.rv);
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listnewmusic,R.layout.item_song_main,true);
+        songAdapterList = new SongAdapterList(context, listnewmusic,R.layout.item_song_main,true,getActivity());
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
+                PlayerHelper.playmusic(context,position);
+                currentlist=listnewmusic;
 
             }
 
@@ -128,6 +136,14 @@ public class NewestFragment extends Fragment {
             }
         });
 
+        playrandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayerHelper.playmusic(context, Tools.getRandomNumber(0,listnewmusic.size()));
+                currentlist=listnewmusic;
+
+            }
+        });
 
 
     }

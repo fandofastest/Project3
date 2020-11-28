@@ -148,12 +148,13 @@ public class HomeFragment extends Fragment {
         rvnewest.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvnewest.setHasFixedSize(true);
         //set data and list adapter
-        newestAdapter = new SongAdapterList(context, listnewmusic,R.layout.item_song_list_home,false);
+        newestAdapter = new SongAdapterList(context, listnewmusic,R.layout.item_song_list_home,false,getActivity());
         newestAdapter.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
 
-
+                PlayerHelper.playmusic(context,position);
+                currentlist=listnewmusic;
             }
 
             @Override
@@ -173,7 +174,7 @@ public class HomeFragment extends Fragment {
         //set data and list adapter
         playlistAdapter = new PlaylistAdapter(context, listplaylist);
         playlistAdapter.setOnItemClickListener(( obj, position) -> {
-            ((MainActivity) getActivity()).loadFragment(PlaylistDetailFragment.newInstance(String.valueOf(obj.getId()),""),"");
+            ((MainActivity) getActivity()).loadFragment(PlaylistDetailFragment.newInstance(String.valueOf(obj.getId()),obj),"");
 
 
         });

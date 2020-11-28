@@ -12,18 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapter;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Tools;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.MusicService.currentlist;
+import static com.example.project3.utils.Static.listnewmusic;
 import static com.example.project3.utils.Static.listtrending;
 
 /**
@@ -45,6 +50,7 @@ public class TrendingFragment extends Fragment {
     RecyclerView rvtrending;
     SongAdapterList songAdapterList;
     CarouselView carouselView;
+    ImageButton playall;
     int[] imageslider = {R.drawable.imageslider, R.drawable.imageslider, R.drawable.imageslider, R.drawable.imageslider, R.drawable.imageslider};
 
     public TrendingFragment() {
@@ -94,12 +100,13 @@ public class TrendingFragment extends Fragment {
         rvtrending.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvtrending.setHasFixedSize(true);
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listtrending,R.layout.item_song_main,true);
+        songAdapterList = new SongAdapterList(context, listtrending,R.layout.item_song_main,true,getActivity());
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
 
-
+                PlayerHelper.playmusic(context,position);
+                currentlist=listtrending;
             }
 
             @Override
@@ -110,6 +117,14 @@ public class TrendingFragment extends Fragment {
 
         });
         rvtrending.setAdapter(songAdapterList);
+        playall=view.findViewById(R.id.imageButton);
+        playall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayerHelper.playmusic(context, Tools.getRandomNumber(0,listtrending.size()));
+                currentlist=listtrending;
+            }
+        });
     }
 
 

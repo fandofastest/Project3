@@ -3,6 +3,7 @@ package com.example.project3.helper;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import com.bullhead.equalizer.DialogEqualizerFragment;
 import com.example.project3.BuildConfig;
 import com.example.project3.MainActivity;
 import com.example.project3.R;
+import com.example.project3.model.PLaylistModel;
 import com.example.project3.utils.MusicService;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -58,6 +60,10 @@ public  class Dialog {
         toast.setView(layout);
         toast.show();
     }
+
+
+
+
     public static void ratedialog(Context context,Activity activity){
         final android.app.Dialog dialog = new android.app.Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before

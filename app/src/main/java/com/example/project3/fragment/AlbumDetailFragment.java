@@ -26,9 +26,11 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.AlbumModel;
 import com.example.project3.model.SongModel;
 import com.example.project3.utils.Config;
+import com.example.project3.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +39,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.MusicService.currentlist;
+import static com.example.project3.utils.Static.listnewmusic;
 import static com.example.project3.utils.Static.listtrending;
 
 /**
@@ -88,7 +92,6 @@ public class AlbumDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ALBUM);
         }
         context=getContext();
         Bundle bundle = this.getArguments();
@@ -113,6 +116,11 @@ public class AlbumDetailFragment extends Fragment {
         playbut=view.findViewById(R.id.buttonplaymusic);
         libbut=view.findViewById(R.id.libbutton);
 
+        playbut.setOnClickListener(v -> {
+            PlayerHelper.playmusic(context, Tools.getRandomNumber(0,listsong.size()));
+            currentlist=listsong;
+
+        });
         Glide
                 .with(context)
                 .load(albumModel.getImageUrl())
@@ -131,12 +139,13 @@ public class AlbumDetailFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listsong,R.layout.item_song_main,true);
+        songAdapterList = new SongAdapterList(context, listsong,R.layout.item_song_main,true,getActivity());
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
 
-
+                PlayerHelper.playmusic(context, position);
+                currentlist=listsong;
             }
 
             @Override

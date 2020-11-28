@@ -22,8 +22,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.project3.MainActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
+import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.SongModel;
 import com.example.project3.utils.Config;
+import com.example.project3.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +34,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.MusicService.currentlist;
+import static com.example.project3.utils.Static.listnewmusic;
 import static com.example.project3.utils.Static.listtrending;
 
 /**
@@ -107,11 +111,12 @@ public class DiscoverFragment extends Fragment {
             listsearch=listtrending;
         }
         //set data and list adapter
-        songAdapterList = new SongAdapterList(context, listsearch,R.layout.item_song_main,false);
+        songAdapterList = new SongAdapterList(context, listsearch,R.layout.item_song_main,false,getActivity());
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
+                PlayerHelper.playmusic(context,position);
+                currentlist=listsearch;
 
             }
 
