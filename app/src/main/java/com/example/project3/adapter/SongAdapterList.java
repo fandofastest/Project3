@@ -3,10 +3,13 @@ package com.example.project3.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +39,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private OnItemClickListener mOnItemClickListener;
     int layout;
     boolean paddingfirst;
+    List<SongModel> listselected = new ArrayList<>();
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onMoreClick(SongModel position);
@@ -46,7 +50,11 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public SongAdapterList(Context context, List<SongModel> items,int layout,boolean paddingfirst,Activity activity) {
+    public List<SongModel> getListselected() {
+        return listselected;
+    }
+
+    public SongAdapterList(Context context, List<SongModel> items, int layout, boolean paddingfirst, Activity activity) {
         this.items = items;
         this.layout=layout;
         this.paddingfirst=paddingfirst;
@@ -65,6 +73,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ImageView songactive,lirik;
         public ImageButton more;
         public TextView no;
+        public CheckBox checkBox;
         public OriginalViewHolder(View v) {
             super(v);
             lirik=v.findViewById(R.id.imageView5);
@@ -77,6 +86,7 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             lyt_parent=v.findViewById(R.id.mainly);
             more=v.findViewById(R.id.more);
             no=v.findViewById(R.id.no);
+            checkBox=v.findViewById(R.id.checkBox);
 
         }
     }
@@ -114,6 +124,8 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             try {
                 view.artistname.setText(obj.getArtist());
+                view.no.setText(Tools.parsenumber(position+1));
+
             }
             catch (Exception e){
                 System.out.println(e);
@@ -121,90 +133,111 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
 
 
-            view.no.setText(Tools.parsenumber(position+1));
-
-            if (!(layout==R.layout.item_song_list_home)){
-                view.songtitle.setText(obj.getTitle());
-                view.songactive.setVisibility(View.INVISIBLE);
-                view.totalplays.setText(obj.getPlays()+" Plays");
-                view.dura.setText(obj.getDuration());
-                if (!(selectedKey == -1)) {
-                    if (position != selectedKey) {
-                        view.songactive.setVisibility(View.INVISIBLE);
-                        view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.white));
-                        view.totalplays.setTextColor(ContextCompat.getColor(ctx, R.color.white));
-                        view.dura.setTextColor(ContextCompat.getColor(ctx, R.color.white));
-                        view.lirik.setImageResource(R.drawable.ic_lirikgrey);
-
-
-                    } else {
-                        view.songactive.setVisibility(View.VISIBLE);
-                        view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
-                        view.totalplays.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
-                        view.dura.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
-                        view.lirik.setImageResource(R.drawable.lirik);
 
 
 
-                    }
-                }
+            if (!(layout==R.layout.item_song_list_home)) {
 
-                view.more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        PowerMenuItem myitem = null;
-                        RealmHelper realmHelper = new RealmHelper(ctx);
+                if (layout == R.layout.item_song_checkbox) {
+                    view.songtitle.setText(obj.getTitle());
+                    view.totalplays.setText(obj.getPlays() + " Plays");
+                    view.dura.setText(obj.getDuration());
 
-                        boolean isfav= realmHelper.checkIsFav(obj.getId());
-
-                        if (isfav){
-                            myitem= new PowerMenuItem("Favorite", true);
-                        }
-                        else {
-                            myitem= new PowerMenuItem("Add to Favorite", false);
-                        }
-
-                        PowerMenu powerMenu = new PowerMenu.Builder(ctx)
-                                .addItem(myitem) // add an item.
-                                .addItem(new PowerMenuItem("Add to Playlist", false)) // aad an item list.
-                                .addItem(new PowerMenuItem("Share", false)) // aad an item list.
-                                .addItem(new PowerMenuItem("Rate this App", false)) // aad an item list.
-                                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
-                                .setMenuRadius(10f) // sets the corner radius.
-                                .setMenuShadow(10f) // sets the shadow.
-                                .setTextColor(ContextCompat.getColor(ctx, R.color.white))
-                                .setTextGravity(Gravity.LEFT)
-                                .setTextTypeface(ResourcesCompat.getFont(ctx, R.font.nsregular))
-                                .setSelectedTextColor(ContextCompat.getColor(ctx, R.color.merah))
-                                .setMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
-                                .setSelectedMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
-                                .build();
-
-                        powerMenu.setOnMenuItemClickListener((position1, item) -> {
-                            if (position1 ==0){
-
-                                realmHelper.actionfav(obj,isfav);
-                                notifyDataSetChanged();
+                    view.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked) {
+                                listselected.add(obj);
+                                Log.e("xxxxxxx", "added: "+obj.getId() );
                             }
-                            else if (position1==1){
+                            else {
+                                listselected.remove(obj);
+                                Log.e("xxxxxxx", "remove: "+obj.getId() );
+                            }
+                        }
+                    });
+
+
+                } else {
+
+                    view.songtitle.setText(obj.getTitle());
+                    view.songactive.setVisibility(View.INVISIBLE);
+                    view.totalplays.setText(obj.getPlays() + " Plays");
+                    view.dura.setText(obj.getDuration());
+                    if (!(selectedKey == -1)) {
+                        if (position != selectedKey) {
+                            view.songactive.setVisibility(View.INVISIBLE);
+                            view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+                            view.totalplays.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+                            view.dura.setTextColor(ContextCompat.getColor(ctx, R.color.white));
+                            view.lirik.setImageResource(R.drawable.ic_lirikgrey);
+
+
+                        } else {
+                            view.songactive.setVisibility(View.VISIBLE);
+                            view.songtitle.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
+                            view.totalplays.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
+                            view.dura.setTextColor(ContextCompat.getColor(ctx, R.color.merah));
+                            view.lirik.setImageResource(R.drawable.lirik);
+
+
+                        }
+                    }
+
+                    view.more.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            PowerMenuItem myitem = null;
+                            RealmHelper realmHelper = new RealmHelper(ctx);
+
+                            boolean isfav = realmHelper.checkIsFav(obj.getId());
+
+                            if (isfav) {
+                                myitem = new PowerMenuItem("Favorite", true);
+                            } else {
+                                myitem = new PowerMenuItem("Add to Favorite", false);
+                            }
+
+                            PowerMenu powerMenu = new PowerMenu.Builder(ctx)
+                                    .addItem(myitem) // add an item.
+                                    .addItem(new PowerMenuItem("Add to Playlist", false)) // aad an item list.
+                                    .addItem(new PowerMenuItem("Share", false)) // aad an item list.
+                                    .addItem(new PowerMenuItem("Rate this App", false)) // aad an item list.
+                                    .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
+                                    .setMenuRadius(10f) // sets the corner radius.
+                                    .setMenuShadow(10f) // sets the shadow.
+                                    .setTextColor(ContextCompat.getColor(ctx, R.color.white))
+                                    .setTextGravity(Gravity.LEFT)
+                                    .setTextTypeface(ResourcesCompat.getFont(ctx, R.font.nsregular))
+                                    .setSelectedTextColor(ContextCompat.getColor(ctx, R.color.merah))
+                                    .setMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
+                                    .setSelectedMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
+                                    .build();
+
+                            powerMenu.setOnMenuItemClickListener((position1, item) -> {
+                                if (position1 == 0) {
+
+                                    realmHelper.actionfav(obj, isfav);
+                                    notifyDataSetChanged();
+                                } else if (position1 == 1) {
 //                            ((MainActivity)ctx).showPlaylist(String.valueOf(obj.getId()));
 
-                            }
-                            else if (position1 == 2) {
-                                Dialog.sharedialog(ctx);
+                                } else if (position1 == 2) {
+                                    Dialog.sharedialog(ctx);
 
-                            } else if (position1 == 3) {
+                                } else if (position1 == 3) {
 
-                                Dialog.ratedialog(ctx,activity);
+                                    Dialog.ratedialog(ctx, activity);
 
-                            }
+                                }
 
-                            powerMenu.dismiss();
-                        });
-                        powerMenu.showAsDropDown(view);
-                    }
-                });
+                                powerMenu.dismiss();
+                            });
+                            powerMenu.showAsDropDown(view);
+                        }
+                    });
 
+                }
             }
 
 
@@ -218,7 +251,13 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     notifyDataSetChanged();
 
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(position);
+                        if (layout==R.layout.item_song_checkbox){
+
+                        }
+                        else {
+                            mOnItemClickListener.onItemClick(position);
+
+                        }
 
                     }
                 }

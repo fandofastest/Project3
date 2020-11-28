@@ -21,6 +21,8 @@ public class RealmHelper {
     Realm realm;
     Context contex;
     boolean isexist =false;
+    RealmResults<SongModel> results;
+
     public RealmHelper(Context contex) {
         Realm.init(contex);
         RealmConfiguration configuration = new RealmConfiguration.Builder().allowWritesOnUiThread(true).build();
@@ -29,6 +31,7 @@ public class RealmHelper {
     }
     public interface MyRealmListener {
         void onsuccess();
+        void onsuccessdata(List<SongModel> list);
     }
     private  MyRealmListener listener;
 
@@ -177,6 +180,10 @@ public class RealmHelper {
         });
     }
 
+
+
+
+
     public List<SongModel> getAllSongsrecent() {
         RealmResults<SongModel> results = realm.where(SongModel.class)
                 .equalTo("playlistid", "0")
@@ -191,6 +198,34 @@ public class RealmHelper {
         return results;
 
     }
+//    // untuk menyimpan lagu ke playlist
+//    public void getSongByPlaylistasync(String playlistId) {
+//        realm.executeTransactionAsync(new Realm.Transaction() {
+//                                          @Override
+//                                          public void execute(Realm realm) {
+//                                              if (realm != null) {
+//                                                 results = realm.where(SongModel.class)
+//                                                          .equalTo("playlistid", playlistId)
+//                                                          .findAll();
+//
+//
+//                                              } else {
+//                                                  Log.e("ppppp", "execute: Database not Exist");
+//                                              }
+//                                          }
+//
+//                                      }, new Realm.Transaction.OnSuccess() {
+//                                          @Override
+//                                          public void onSuccess() {
+//
+//                                              listener.onsuccessdata(results);
+//                                          }
+//                                      }
+//
+//
+//        );
+//    }
+//
 
 
 

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,8 @@ public class MyPlaylistDetailFragment extends Fragment {
     RecyclerView recyclerView;
     ImageView nosong;
     ImageButton addsong;
+    ImageButton play;
+        RealmHelper realmHelper;
     List<SongModel> listsong = new ArrayList<>();
     public MyPlaylistDetailFragment() {
         // Required empty public constructor
@@ -74,11 +77,13 @@ public class MyPlaylistDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             myPlaylistModel = bundle.getParcelable(MYPLAYLIST); // Key
         }
         context=getContext();
+         realmHelper = new RealmHelper(context);
     }
 
     @Override
@@ -91,14 +96,19 @@ public class MyPlaylistDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         nosong=view.findViewById(R.id.nosong);
         addsong=view.findViewById(R.id.addsong);
+        play=view.findViewById(R.id.play);
         pltitle=view.findViewById(R.id.playlistname);
         pltitle.setText(myPlaylistModel.getName());
         recyclerView=view.findViewById(R.id.rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         //set data and list adapter
+
+        listsong=realmHelper.getSongsbyPlaylistid(String.valueOf(myPlaylistModel.getId()));
+
         songAdapterList = new SongAdapterList(context, listsong,R.layout.item_song_main,true,getActivity());
         songAdapterList.setOnItemClickListener(new SongAdapterList.OnItemClickListener() {
             @Override
@@ -112,20 +122,37 @@ public class MyPlaylistDetailFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(songAdapterList);
+        addsong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).loadFragment(AddSongToFragment.newInstance(String.valueOf(myPlaylistModel.getId()),""),"All Song");
 
+            }
+        });
+
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                songAdapterList.notifyDataSetChanged();
+                Log.e("klibut", "onClick: " +listsong.size());
+            }
+        });
         getsong();
+
+
     }
 
     void getsong(){
-
-        RealmHelper realmHelper = new RealmHelper(context);
-       listsong= realmHelper.getSongsbyPlaylistid(String.valueOf(myPlaylistModel.getId()));
-       if (listsong.size()>0 ){
-           nosong.setVisibility(View.GONE);
-           addsong.setVisibility(View.GONE);
-       }
-       songAdapterList.notifyDataSetChanged();
-
+        if (listsong.size()>0 ){
+            nosong.setVisibility(View.GONE);
+            addsong.setVisibility(View.GONE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+        songAdapterList.notifyDataSetChanged();
     }
 
 

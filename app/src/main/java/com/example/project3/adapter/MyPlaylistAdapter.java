@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project3.R;
 import com.example.project3.model.MyPlaylistModel;
+import com.example.project3.model.SongModel;
 import com.example.project3.utils.RealmHelper;
 import com.skydoves.powermenu.MenuAnimation;
 import com.skydoves.powermenu.PowerMenu;
@@ -130,6 +131,11 @@ public class MyPlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 @Override
                                 public void onsuccess() {
                                     notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onsuccessdata(List<SongModel> list) {
+
                                 }
                             });
 

@@ -33,6 +33,7 @@
 
 
     <com.amar.library.ui.StickyScrollView
+        android:layout_marginTop="50sp"
         android:id="@+id/scrolll"
         android:layout_width="match_parent"
         app:stickyHeader="@+id/sticky"
@@ -51,7 +52,7 @@
                 android:id="@+id/sticky"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="100dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

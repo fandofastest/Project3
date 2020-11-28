@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.project3.fragment.DiscoverFragment;
 import com.example.project3.fragment.HomeFragment;
 import com.example.project3.fragment.LibraryFragment;
+import com.example.project3.fragment.libraryfragment.MyPlaylistFragment;
 import com.example.project3.helper.Dialog;
 import com.example.project3.utils.RealmHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -55,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
     void getdblist(){
         RealmHelper realmHelper = new RealmHelper(MainActivity.this);
-        listmyplaylist=realmHelper.getallPlaylist();
         listfav=realmHelper.getSongsbyPlaylistid("1");
 
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem newitem) {
@@ -134,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
+    public void backfragment(){
+        onBackPressed();
+    }
 
     @Override
     public void onBackPressed() {

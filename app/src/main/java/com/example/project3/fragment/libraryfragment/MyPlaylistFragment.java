@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +22,10 @@ import android.widget.Toast;
 import com.example.project3.MainActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.MyPlaylistAdapter;
-import com.example.project3.adapter.SongAdapterList;
-import com.example.project3.fragment.AlbumDetailFragment;
 import com.example.project3.model.MyPlaylistModel;
-import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
 import com.example.project3.utils.RealmHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
@@ -79,6 +74,8 @@ public class MyPlaylistFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +100,12 @@ public class MyPlaylistFragment extends Fragment {
         rvplaylist=view.findViewById(R.id.rv);
         rvplaylist.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         rvplaylist.setHasFixedSize(true);
-        //set data and list adapter
+
+        //set data and list adapter.
+        RealmHelper realmHelper= new RealmHelper(context);
+        listmyplaylist=realmHelper.getallPlaylist();
+
+
         myPlaylistAdapter = new MyPlaylistAdapter(context, listmyplaylist);
         myPlaylistAdapter.setOnItemClickListener(new MyPlaylistAdapter.OnItemClickListener() {
             @Override
@@ -127,6 +129,8 @@ public class MyPlaylistFragment extends Fragment {
         });
 
 
+
+        myPlaylistAdapter.notifyDataSetChanged();
 
 
     }
@@ -172,10 +176,17 @@ public class MyPlaylistFragment extends Fragment {
         myPlaylistModel.setTotalsong(0);
         RealmHelper realmHelper = new RealmHelper(context);
         realmHelper.creatnewplaylist(myPlaylistModel);
-        realmHelper.setMyRealmListener(() -> {
-            Toast.makeText(context,"Success",LENGTH_LONG).show();
-            myPlaylistAdapter.notifyDataSetChanged();
+        realmHelper.setMyRealmListener(new RealmHelper.MyRealmListener() {
+            @Override
+            public void onsuccess() {
+                Toast.makeText(context,"Success",LENGTH_LONG).show();
+                myPlaylistAdapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onsuccessdata(List<SongModel> list) {
+
+            }
         });
 
     }
