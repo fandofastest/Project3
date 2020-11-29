@@ -17,18 +17,25 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amar.library.ui.StickyScrollView;
+import com.amar.library.ui.interfaces.IScrollViewListener;
 import com.example.project3.MainActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.PlaylistAdapter;
 import com.example.project3.adapter.SongAdapterList;
 import com.example.project3.fragment.PlaylistDetailFragment;
+import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.MyPlaylistModel;
 import com.example.project3.model.SongModel;
 import com.example.project3.utils.RealmHelper;
+import com.example.project3.utils.Static;
+import com.example.project3.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project3.utils.MusicService.currentlist;
+import static com.example.project3.utils.Static.listnewmusic;
 import static com.example.project3.utils.Static.listplaylist;
 
     /**
@@ -53,6 +60,7 @@ public class MyPlaylistDetailFragment extends Fragment {
     ImageView nosong;
     ImageButton addsong;
     ImageButton play;
+    StickyScrollView stickyScrollView;
         RealmHelper realmHelper;
     List<SongModel> listsong = new ArrayList<>();
     public MyPlaylistDetailFragment() {
@@ -120,6 +128,11 @@ public class MyPlaylistDetailFragment extends Fragment {
             public void onMoreClick(SongModel position) {
 
             }
+
+            @Override
+            public void onCheckboxselected(int total) {
+
+            }
         });
         recyclerView.setAdapter(songAdapterList);
         addsong.setOnClickListener(new View.OnClickListener() {
@@ -135,8 +148,30 @@ public class MyPlaylistDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                songAdapterList.notifyDataSetChanged();
-                Log.e("klibut", "onClick: " +listsong.size());
+                PlayerHelper.playmusic(context, Tools.getRandomNumber(0,listsong.size()));
+                currentlist=listsong;
+            }
+        });
+        stickyScrollView=view.findViewById(R.id.scrolll);
+        stickyScrollView.setScrollViewListener(new IScrollViewListener() {
+            @Override
+            public void onScrollChanged(int i, int i1, int i2, int i3) {
+                Log.e("onScrollChanged", "onScrollChanged: "+i1 );
+                if (i1<50){
+                    recyclerView.setNestedScrollingEnabled(false);
+
+                }
+                else {
+                    recyclerView.setNestedScrollingEnabled(true);
+
+                }
+
+            }
+
+            @Override
+            public void onScrollStopped(boolean b) {
+
+
             }
         });
         getsong();

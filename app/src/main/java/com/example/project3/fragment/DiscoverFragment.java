@@ -125,6 +125,11 @@ public class DiscoverFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCheckboxselected(int total) {
+
+            }
+
 
         });
         recyclerView.setAdapter(songAdapterList);

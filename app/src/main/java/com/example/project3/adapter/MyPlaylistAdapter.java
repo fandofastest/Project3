@@ -42,6 +42,8 @@ public class MyPlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public interface OnItemClickListener {
         void onItemClick(MyPlaylistModel obj, int position);
+
+
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {

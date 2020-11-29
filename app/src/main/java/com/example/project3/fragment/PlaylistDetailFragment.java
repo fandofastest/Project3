@@ -150,6 +150,11 @@ public class PlaylistDetailFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCheckboxselected(int total) {
+
+            }
+
 
         });
         recyclerView.setAdapter(songAdapterList);

@@ -102,6 +102,11 @@ public class FavoriteFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCheckboxselected(int total) {
+
+            }
+
 
         });
         rvfav.setAdapter(songAdapterList);

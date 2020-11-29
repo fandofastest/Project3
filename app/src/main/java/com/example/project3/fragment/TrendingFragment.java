@@ -114,6 +114,11 @@ public class TrendingFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCheckboxselected(int total) {
+
+            }
+
 
         });
         rvtrending.setAdapter(songAdapterList);

@@ -17,10 +17,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton10" />
+        app:layout_constraintTop_toBottomOf="@+id/selectall" />
 
     <ImageButton
-        android:id="@+id/imageButton10"
+        android:id="@+id/selectall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -32,14 +32,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imageButton12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_addselectsong"
-        app:layout_constraintBottom_toBottomOf="@+id/rv"
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/addtosong"
+        style="@style/MyButtonSubmit"
+        android:layout_width="170sp"
+        android:layout_height="60sp"
+        android:layout_marginTop="400dp"
+        android:text="Add to song"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/rv"
-        app:layout_constraintStart_toStartOf="@+id/rv" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="600sp"
     android:background="@drawable/bg"
-    tools:context=".fragment.NewestFragment"
-    >
+    tools:context=".fragment.NewestFragment">
+
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/imageFilterView4"
         android:layout_width="0dp"
@@ -33,11 +32,11 @@
 
 
     <com.amar.library.ui.StickyScrollView
-        android:layout_marginTop="50sp"
         android:id="@+id/scrolll"
         android:layout_width="match_parent"
-        app:stickyHeader="@+id/sticky"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50sp"
+        app:stickyHeader="@+id/sticky">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,12 +58,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageButton
-                    android:layout_marginTop="20sp"
-                    android:layout_marginStart="-70sp"
-                    android:layout_toEndOf="@id/boxtitle"
                     android:id="@+id/play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="-70sp"
+                    android:layout_marginTop="20sp"
+                    android:layout_toEndOf="@id/boxtitle"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_playtrending" />
 
@@ -79,30 +78,30 @@
                     android:overScrollMode="always" />
 
                 <ImageView
-                    android:layout_marginTop="100sp"
                     android:id="@+id/nosong"
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/nosong"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="100sp"
+                    android:src="@drawable/nosong" />
 
 
                 <ImageButton
-                    android:layout_marginTop="30sp"
-                    android:layout_centerHorizontal="true"
                     android:id="@+id/addsong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/nosong"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30sp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_addsong" />
+                    android:src="@drawable/ic_gotoaddsong" />
 
                 <LinearLayout
                     android:id="@+id/boxtitle"
-                    android:layout_marginLeft="30sp"
-                    android:layout_marginRight="30sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="30sp"
+                    android:layout_marginRight="30sp"
                     android:orientation="vertical">
 
                     <TextView
@@ -116,7 +115,6 @@
                         android:textSize="28sp" />
 
 
-
                     <TextView
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
@@ -128,7 +126,6 @@
                 </LinearLayout>
 
 
-
             </RelativeLayout>
 
 
@@ -136,7 +133,6 @@
 
 
     </com.amar.library.ui.StickyScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

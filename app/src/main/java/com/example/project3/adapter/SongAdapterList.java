@@ -39,16 +39,25 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private OnItemClickListener mOnItemClickListener;
     int layout;
     boolean paddingfirst;
+    boolean isSelectedAll =false;
     List<SongModel> listselected = new ArrayList<>();
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onMoreClick(SongModel position);
+        void onCheckboxselected(int total);
     }
     int menu;
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
+
+
+    public boolean isSelectedAll() {
+        return isSelectedAll;
+    }
+
+
 
     public List<SongModel> getListselected() {
         return listselected;
@@ -139,6 +148,12 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (!(layout==R.layout.item_song_list_home)) {
 
                 if (layout == R.layout.item_song_checkbox) {
+
+                    if (!isSelectedAll){
+                        view.checkBox.setChecked(false);
+                    }
+                    else  view.checkBox.setChecked(true);
+
                     view.songtitle.setText(obj.getTitle());
                     view.totalplays.setText(obj.getPlays() + " Plays");
                     view.dura.setText(obj.getDuration());
@@ -154,6 +169,8 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 listselected.remove(obj);
                                 Log.e("xxxxxxx", "remove: "+obj.getId() );
                             }
+                            mOnItemClickListener.onCheckboxselected(listselected.size());
+
                         }
                     });
 
@@ -272,5 +289,21 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return items.size();
     }
+    public void selectAll(){
+        mOnItemClickListener.onCheckboxselected(listselected.size());
+
+        listselected.addAll(items);
+
+        isSelectedAll=true;
+        notifyDataSetChanged();
+    }
+    public void unselectall(){
+        mOnItemClickListener.onCheckboxselected(listselected.size());
+
+        listselected.clear();
+        isSelectedAll=false;
+        notifyDataSetChanged();
+    }
+
 
 }

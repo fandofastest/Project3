@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.amar.library.ui.StickyScrollView;
@@ -48,8 +49,8 @@ public class AddSongToFragment extends Fragment {
     RecyclerView recyclerView;
     SongAdapterList songAdapterList;
     StickyScrollView stickyScrollView;
-    ImageButton added;
-
+    Button added;
+    ImageButton selectall;
 
     public AddSongToFragment() {
         // Required empty public constructor
@@ -93,7 +94,10 @@ public class AddSongToFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        added= view.findViewById(R.id.imageButton12);
+        added= view.findViewById(R.id.addtosong);
+        added.setVisibility(View.GONE);
+
+        selectall=view.findViewById(R.id.selectall);
         recyclerView=view.findViewById(R.id.rv);
         stickyScrollView=view.findViewById(R.id.sticky);
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
@@ -114,6 +118,12 @@ public class AddSongToFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCheckboxselected(int total) {
+                    added.setVisibility(View.VISIBLE);
+                    added.setText("Add "+total+" To Playlist");
+            }
+
 
         });
         recyclerView.setAdapter(songAdapterList);
@@ -122,6 +132,10 @@ public class AddSongToFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 RealmHelper realmHelper=  new RealmHelper(context);
+
+
+
+
                 for (int i = 0; i <songAdapterList.getListselected().size() ; i++) {
 
                     SongModel songModel= songAdapterList.getListselected().get(i);
@@ -146,6 +160,17 @@ public class AddSongToFragment extends Fragment {
                 }
                 ((MainActivity)getActivity()).backfragment();
 
+            }
+        });
+        selectall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(songAdapterList.isSelectedAll()){
+                    songAdapterList.unselectall();
+                }
+                else {
+                    songAdapterList.selectAll();
+                }
             }
         });
 

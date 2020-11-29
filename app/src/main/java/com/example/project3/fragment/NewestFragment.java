@@ -110,6 +110,11 @@ public class NewestFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCheckboxselected(int total) {
+
+            }
+
 
         });
         rvnewest.setAdapter(songAdapterList);

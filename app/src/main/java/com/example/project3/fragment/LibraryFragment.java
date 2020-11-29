@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.project3.R;
+import com.example.project3.fragment.libraryfragment.AlbumFragment;
 import com.example.project3.fragment.libraryfragment.FavoriteFragment;
 import com.example.project3.fragment.libraryfragment.MyPlaylistFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -143,7 +144,7 @@ public class LibraryFragment extends Fragment {
                 case 1:
                     return MyPlaylistFragment.newInstance("Library", "");
                 case 2:
-                    return FavoriteFragment.newInstance("Library", "");
+                    return AlbumFragment.newInstance("Library", "");
             }
             return FavoriteFragment.newInstance("", "");
         }

@@ -294,7 +294,7 @@ public class HomePlayerFragment extends Fragment {
             }
         });
         addpl.setOnClickListener(view -> {
-
+            Dialog.addToPlaylist(context,getActivity(),currentsongModel);
 //            ((PlayerActivity) getActivity()).showPlaylist(String.valueOf(currentsongModel.getId()));
 
         });

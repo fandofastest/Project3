@@ -162,6 +162,11 @@ public class HomeFragment extends Fragment {
 
             }
 
+            @Override
+            public void onCheckboxselected(int total) {
+
+            }
+
 
         });
         rvnewest.setAdapter(newestAdapter);

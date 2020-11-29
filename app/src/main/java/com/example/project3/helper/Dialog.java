@@ -28,13 +28,20 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bullhead.equalizer.DialogEqualizerFragment;
 import com.example.project3.BuildConfig;
 import com.example.project3.MainActivity;
 import com.example.project3.R;
+import com.example.project3.adapter.MyPlaylistAdapter;
+import com.example.project3.adapter.PlaylistAdapter;
+import com.example.project3.model.MyPlaylistModel;
 import com.example.project3.model.PLaylistModel;
+import com.example.project3.model.SongModel;
 import com.example.project3.utils.MusicService;
+import com.example.project3.utils.RealmHelper;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -42,8 +49,10 @@ import com.jzxiang.pickerview.listener.OnDateSetListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
+import static com.example.project3.utils.Static.listmyplaylist;
 import static io.realm.Realm.getApplicationContext;
 
 public  class Dialog {
@@ -157,7 +166,57 @@ public  class Dialog {
         dialog.getWindow().setAttributes(lp);
 
     }
+    public static  void addToPlaylist(Context context, Activity activity, SongModel songModel){
+        final android.app.Dialog dialog = new android.app.Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_add_to_playlist);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(true);
+        RecyclerView recyclerView=dialog.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
+        RealmHelper realmHelper= new RealmHelper(context);
+        listmyplaylist=realmHelper.getallPlaylist();
+        MyPlaylistAdapter myPlaylistAdapter = new MyPlaylistAdapter(context,listmyplaylist);
+        myPlaylistAdapter.setOnItemClickListener(new MyPlaylistAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(MyPlaylistModel obj, int position) {
+                realmHelper.saveplaylists(songModel, String.valueOf(obj.getId()));
+                realmHelper.setMyRealmListener(new RealmHelper.MyRealmListener() {
+                    @Override
+                    public void onsuccess() {
 
+                    }
+
+                    @Override
+                    public void onsuccessdata(List<SongModel> list) {
+
+                    }
+                });
+                dialog.dismiss();
+                Toast.makeText(context,"Added" +songModel.getTitle(),LENGTH_LONG).show();
+
+            }
+        });
+        recyclerView.setAdapter(myPlaylistAdapter);
+
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.findViewById(R.id.button).setOnClickListener(v -> {
+            activity.finish();
+        });
+
+//        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
+        Display display = dialog.getWindow().getWindowManager().getDefaultDisplay();
+//        Ads ads = new Ads(this,false);
+//        ads.ShowBannerAds(bannerlayout,display);
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+
+    }
    public static void privacydisclaimer(String mytitle,String myisi,Context context){
         final android.app.Dialog dialog = new android.app.Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
