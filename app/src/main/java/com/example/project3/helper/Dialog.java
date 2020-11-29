@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.content.ContextCompat;
@@ -42,6 +43,8 @@ import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
 import com.example.project3.utils.MusicService;
 import com.example.project3.utils.RealmHelper;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -56,6 +59,12 @@ import static com.example.project3.utils.Static.listmyplaylist;
 import static io.realm.Realm.getApplicationContext;
 
 public  class Dialog {
+
+
+    private BottomSheetBehavior mBehavior;
+    private BottomSheetDialog mBottomSheetDialog;
+    
+    
     public static void showToast(String pesan,Activity activity) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) activity.findViewById(R.id.llToastBackground));
@@ -166,6 +175,8 @@ public  class Dialog {
         dialog.getWindow().setAttributes(lp);
 
     }
+
+
     public static  void addToPlaylist(Context context, Activity activity, SongModel songModel){
         final android.app.Dialog dialog = new android.app.Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
@@ -205,8 +216,10 @@ public  class Dialog {
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.BOTTOM;
+        lp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         dialog.findViewById(R.id.button).setOnClickListener(v -> {
-            activity.finish();
+            dialog.dismiss();
         });
 
 //        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
