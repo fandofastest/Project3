@@ -124,7 +124,6 @@ public class AddSongToFragment extends Fragment {
                     added.setText("Add "+total+" To Playlist");
             }
 
-
         });
         recyclerView.setAdapter(songAdapterList);
 

@@ -104,7 +104,7 @@ public class MusicService extends Service {
             }
         }, new IntentFilter("musicplayer"));
 
-        registerReceiver(broadcastReceiver, new IntentFilter("myapp"));
+        registerReceiver(broadcastReceiver, new IntentFilter("app3"));
 
 
 
@@ -173,7 +173,7 @@ public class MusicService extends Service {
             pos=currentlist.size()-1;
         }
         currentpos=pos;
-        CreateNotification.createNotification(getApplicationContext(), currentlist.get(currentpos),
+        CreateNotification.createNotification(getApplicationContext(), currentlist.get(pos),
                 R.drawable.ic_pause_notif, currentpos, currentlist.size()-1);
 
         try {

@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
             powerMenu.setOnMenuItemClickListener((position1, item) -> {
 
-               Dialog.showToast("10 Songs Added",MainActivity.this);
 
                 if (position1==0){
                     Intent intent = new Intent(MainActivity.this,AboutActivity.class);

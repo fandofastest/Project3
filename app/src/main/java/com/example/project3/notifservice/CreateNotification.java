@@ -24,8 +24,7 @@ import com.example.project3.model.SongModel;
 public class CreateNotification {
  public  static    Bitmap icon = null;
 
-    public static final String CHANNEL_ID = "musicapp";
-
+    public static final String CHANNEL_ID = "musicappnew";
     public static final String ACTION_PREVIUOS = "actionprevious";
     public static final String ACTION_PLAY = "actionplay";
     public static final String ACTION_NEXT = "actionnext";
@@ -95,18 +94,21 @@ public class CreateNotification {
                 drw_next = R.drawable.ic_skip_next_black_24dp;
             }
 
+
+
             //create notification
             notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_music_note)
                     .setContentTitle(songModel.getTitle())
                     .setContentText(songModel.getArtist())
                     .setLargeIcon(icon)
-                    .setOnlyAlertOnce(true)//show notification for only first time
+                    .setOnlyAlertOnce(false)//show notification for only first time
                     .setShowWhen(false)
                     .addAction(drw_previous, "Previous", pendingIntentPrevious)
                     .addAction(playbutton, "Play", pendingIntentPlay)
                     .addAction(drw_next, "Next", pendingIntentNext)
                     .setDeleteIntent(pendingIntentClose)
+
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                             .setShowActionsInCompactView(0, 1, 2)
                             .setMediaSession(mediaSessionCompat.getSessionToken()))

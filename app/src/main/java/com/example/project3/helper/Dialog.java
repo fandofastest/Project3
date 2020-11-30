@@ -16,7 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -184,6 +186,16 @@ public  class Dialog {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCancelable(true);
         RecyclerView recyclerView=dialog.findViewById(R.id.recyclerView);
+        ImageButton createpl=dialog.findViewById(R.id.imageButton10);
+        createpl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createplc(context,activity,songModel);
+                dialog.dismiss();
+
+
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         RealmHelper realmHelper= new RealmHelper(context);
@@ -230,6 +242,73 @@ public  class Dialog {
         dialog.getWindow().setAttributes(lp);
 
     }
+
+    public static  void createplc(Context context, Activity activity,SongModel songModel){
+        final android.app.Dialog dialog = new android.app.Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_create_playlist);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(true);
+        EditText editText = dialog.findViewById(R.id.inputplaylist);
+
+        Button createpl=dialog.findViewById(R.id.submit);
+        createpl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newplaylist =editText.getText().toString();
+
+                MyPlaylistModel myPlaylistModel= new MyPlaylistModel();
+                myPlaylistModel.setName(newplaylist);
+                myPlaylistModel.setTotalsong(0);
+                RealmHelper realmHelper = new RealmHelper(context);
+                realmHelper.creatnewplaylist(myPlaylistModel);
+                realmHelper.setMyRealmListener(new RealmHelper.MyRealmListener() {
+                    @Override
+                    public void onsuccess() {
+                        Toast.makeText(context,"Success",LENGTH_LONG).show();
+                        addToPlaylist(context,activity,songModel);
+                        dialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onsuccessdata(List<SongModel> list) {
+
+                    }
+                });
+            }
+        });
+
+
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.CENTER;
+        lp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                EditText inputtext =dialog.findViewById(R.id.inputplaylist);
+
+                inputtext.setFocusable(true);
+                inputtext.requestFocus();
+
+            }
+        });
+
+//        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
+        Display display = dialog.getWindow().getWindowManager().getDefaultDisplay();
+//        Ads ads = new Ads(this,false);
+//        ads.ShowBannerAds(bannerlayout,display);
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+
+    }
+
+
    public static void privacydisclaimer(String mytitle,String myisi,Context context){
         final android.app.Dialog dialog = new android.app.Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
