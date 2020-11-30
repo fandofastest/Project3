@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setTitle("");
         actionBar.setDisplayHomeAsUpEnabled(false);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
