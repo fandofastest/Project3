@@ -124,7 +124,7 @@ public class AllPlaylistFragment extends Fragment {
         playlistAdapter.setOnItemClickListener(new PlaylistAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(PLaylistModel obj, int position) {
-                ((MainActivity) getActivity()).loadFragment(PlaylistDetailFragment.newInstance(String.valueOf(obj.getId()),obj),"");
+                ((MainActivity) getActivity()).loadFragment(PlaylistDetailFragment.newInstance(String.valueOf(obj.getId()),obj),"",true);
 
             }
 

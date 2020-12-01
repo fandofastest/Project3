@@ -93,7 +93,7 @@ public class AlbumFragment extends Fragment {
         albumAdapter.setOnItemClickListener(new AlbumAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AlbumModel obj, int position) {
-                ((MainActivity) getActivity()).loadFragment(AlbumDetailFragment.newInstance(obj.getId(),obj),"");
+                ((MainActivity) getActivity()).loadFragment(AlbumDetailFragment.newInstance(obj.getId(),obj),"",true);
 
             }
 

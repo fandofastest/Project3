@@ -111,6 +111,24 @@ public class HomePlayerFragment extends Fragment {
 
         initactionbutton();
         getlocalbroadcaster();
+        if (MusicService.PLAYERSTATUS.equals("PLAYING")){
+            artist.setText(currentsongModel.getArtist());
+            songtitle.setText(currentsongModel.getTitle());
+            Tools.displayImageOriginal(context,cover, currentsongModel.getImageurl());
+            play.setVisibility(View.VISIBLE);
+            play.setImageResource(R.drawable.ic_pause);
+            progressBar.setVisibility(View.GONE);
+            mHandler.post(mUpdateTimeTask);
+
+
+
+        }
+
+        else if (MusicService.PLAYERSTATUS.equals("PAUSE")){
+            play.setVisibility(View.VISIBLE);
+            play.setImageResource(R.drawable.ic_playicon);
+            progressBar.setVisibility(View.GONE);
+        }
 
 
         seekBar.setProgress(0);

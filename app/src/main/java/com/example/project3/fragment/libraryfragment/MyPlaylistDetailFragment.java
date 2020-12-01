@@ -138,7 +138,7 @@ public class MyPlaylistDetailFragment extends Fragment {
         addsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).loadFragment(AddSongToFragment.newInstance(String.valueOf(myPlaylistModel.getId()),""),"All Song");
+                ((MainActivity) getActivity()).loadFragment(AddSongToFragment.newInstance(String.valueOf(myPlaylistModel.getId()),""),"All Song",true);
 
             }
         });

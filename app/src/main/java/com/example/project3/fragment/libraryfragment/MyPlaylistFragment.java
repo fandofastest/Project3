@@ -111,7 +111,7 @@ public class MyPlaylistFragment extends Fragment {
             @Override
             public void onItemClick(MyPlaylistModel obj, int position) {
 
-                ((MainActivity) getActivity()).loadFragment(MyPlaylistDetailFragment.newInstance(obj),"");
+                ((MainActivity) getActivity()).loadFragment(MyPlaylistDetailFragment.newInstance(obj),"",true);
 
 
             }

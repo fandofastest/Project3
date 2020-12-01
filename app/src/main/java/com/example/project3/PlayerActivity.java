@@ -3,12 +3,16 @@ package com.example.project3;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +23,9 @@ import com.example.project3.fragment.HomeFragment;
 import com.example.project3.helper.Dialog;
 import com.example.project3.playerfragment.HomePlayerFragment;
 import com.example.project3.utils.MusicService;
+import com.skydoves.powermenu.MenuAnimation;
+import com.skydoves.powermenu.PowerMenu;
+import com.skydoves.powermenu.PowerMenuItem;
 
 import static com.example.project3.utils.Static.HOME;
 
@@ -68,12 +75,62 @@ public class PlayerActivity extends AppCompatActivity {
         mymenu = menu;
         inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_setting, mymenu);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         setting = menu.findItem(R.id.action_setting);
-        setting.setVisible(false);
+        setting.setVisible(true);
         return true;
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem newitem) {
 
+        if (newitem.getTitle().equals("Setting")){
+            Context ctx=PlayerActivity.this;
+            PowerMenu powerMenu = new PowerMenu.Builder(ctx)
+                    .addItem(new PowerMenuItem("About App", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Privacy Policy", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Disclaimer", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Share This App", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Rating App", false)) // aad an item list.
+                    .addItem(new PowerMenuItem("Equalizer", false)) // aad an item list.
+                    .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
+                    .setMenuRadius(10f) // sets the corner radius.
+                    .setMenuShadow(10f) // sets the shadow.
+                    .setTextColor(ContextCompat.getColor(ctx, R.color.white))
+                    .setTextGravity(Gravity.LEFT)
+                    .setTextTypeface(ResourcesCompat.getFont(ctx, R.font.nsregular))
+                    .setSelectedTextColor(ContextCompat.getColor(ctx, R.color.merah))
+                    .setMenuColor(ContextCompat.getColor(ctx, R.color.maincolour))
+                    .build();
+
+            powerMenu.setOnMenuItemClickListener((position1, item) -> {
+
+
+                if (position1==0){
+                    Intent intent = new Intent(ctx,AboutActivity.class);
+                    startActivity(intent);
+                }
+                else if (position1==1){
+                    Dialog.privacydisclaimer("title","isi",ctx);
+                }
+                else if (position1==2){
+                    Dialog.privacydisclaimer("title","isi",ctx);
+                }
+                else if (position1==3){
+                    Dialog.sharedialog(ctx);
+                }
+                else if (position1==4){
+                    Dialog.ratedialog(ctx,PlayerActivity.this);
+                }
+
+
+            });
+            powerMenu.showAsAnchorRightBottom(toolbar);
+
+        }
+
+
+        return super.onOptionsItemSelected(newitem);
+    }
 
     @Override
     public void onBackPressed() {

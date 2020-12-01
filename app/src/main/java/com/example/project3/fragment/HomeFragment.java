@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment {
         //set data and list adapter
         playlistAdapter = new PlaylistAdapter(context, listplaylist);
         playlistAdapter.setOnItemClickListener(( obj, position) -> {
-            ((MainActivity) getActivity()).loadFragment(PlaylistDetailFragment.newInstance(String.valueOf(obj.getId()),obj),"");
+            ((MainActivity) getActivity()).loadFragment(PlaylistDetailFragment.newInstance(String.valueOf(obj.getId()),obj),"",true);
 
 
         });
@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment {
         //set data and list adapter
         albumAdapter = new AlbumAdapter(context, listalbum,R.layout.item_album);
         albumAdapter.setOnItemClickListener(( obj, position) -> {
-            ((MainActivity) getActivity()).loadFragment(AlbumDetailFragment.newInstance(obj.getId(),obj),"");
+            ((MainActivity) getActivity()).loadFragment(AlbumDetailFragment.newInstance(obj.getId(),obj),"",true);
 
 
         });
@@ -213,7 +213,7 @@ public class HomeFragment extends Fragment {
         buttonmorenewest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).loadFragment(NewestFragment.newInstance("",""),"");
+                ((MainActivity) getActivity()).loadFragment(NewestFragment.newInstance("",""),"",true);
 
             }
         });
@@ -222,20 +222,21 @@ public class HomeFragment extends Fragment {
 
 
         buttonmoretrending.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).loadFragment(TrendingFragment.newInstance("",""),"");
+            ((MainActivity) getActivity()).loadFragment(TrendingFragment.newInstance("",""),"",true);
+
 
         });
         buttonmorealbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).loadFragment(AllAlbumFragment.newInstance("",""),"");
+                ((MainActivity) getActivity()).loadFragment(AllAlbumFragment.newInstance("",""),"",true);
             }
         });
 
         buttonmoreplaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).loadFragment(AllPlaylistFragment.newInstance("",""),"");
+                ((MainActivity) getActivity()).loadFragment(AllPlaylistFragment.newInstance("",""),"",true);
             }
         });
 
