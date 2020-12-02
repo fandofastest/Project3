@@ -32,6 +32,10 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
+import static com.example.project3.utils.Static.ACTIONNAME;
+import static com.example.project3.utils.Static.INTENTFILTERNOTIF;
+import static com.example.project3.utils.Static.LOCALINTENTFILTER;
+
 public class MusicService extends Service {
     public static String lirikurl;
 
@@ -102,9 +106,9 @@ public class MusicService extends Service {
                     }.start();
                 }
             }
-        }, new IntentFilter("musicplayer"));
+        }, new IntentFilter(LOCALINTENTFILTER));
 
-        registerReceiver(broadcastReceiver, new IntentFilter("app3"));
+        registerReceiver(broadcastReceiver, new IntentFilter(INTENTFILTERNOTIF));
 
 
 
@@ -113,14 +117,14 @@ public class MusicService extends Service {
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("actionname");
+            String action = intent.getExtras().getString(ACTIONNAME);
             switch (action){
                 case CreateNotification.ACTION_PREVIUOS:
                     playsong(currentpos-1);
                     break;
                 case CreateNotification.ACTION_PLAY:
                     if (PLAYERSTATUS.equals("PLAYING")){
-                        Intent newintent = new Intent("musicplayer");
+                        Intent newintent = new Intent(LOCALINTENTFILTER);
                         newintent.putExtra("status", "pause");
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newintent);
                         CreateNotification.createNotification(getApplicationContext(), currentlist.get(currentpos),
@@ -128,7 +132,7 @@ public class MusicService extends Service {
                         mp.pause();
                         PLAYERSTATUS="PAUSE";
                     } else {
-                        Intent newintent = new Intent("musicplayer");
+                        Intent newintent = new Intent(LOCALINTENTFILTER);
                         newintent.putExtra("status", "playing");
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newintent);
                         CreateNotification.createNotification(getApplicationContext(), currentlist.get(currentpos),
@@ -181,7 +185,7 @@ public class MusicService extends Service {
             ctitle=currentsongModel.getTitle();
             lirikurl=currentsongModel.getLyric();
 
-            Intent intent = new Intent("musicplayer");
+            Intent intent = new Intent(LOCALINTENTFILTER);
             intent.putExtra("status", "prepare");
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
             mp.stop();
@@ -225,7 +229,7 @@ public class MusicService extends Service {
                     } else {
                         mp.start();
                         PLAYERSTATUS="PLAYING";
-                        Intent intent = new Intent("musicplayer");
+                        Intent intent = new Intent(LOCALINTENTFILTER);
                         intent.putExtra("status", "playing");
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                         setEqualizer(sessionId);

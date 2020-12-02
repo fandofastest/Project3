@@ -33,6 +33,12 @@ public class Static {
 
 
 
+   public static String LOCALINTENTFILTER="musicplayer";
+   public static String ACTIONNAME="actname";
+   public static String INTENTFILTERNOTIF="musicfando";
+
+
+
 
 
 }

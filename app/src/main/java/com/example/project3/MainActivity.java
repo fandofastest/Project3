@@ -2,7 +2,10 @@ package com.example.project3;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -10,12 +13,17 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -32,6 +40,7 @@ import com.example.project3.fragment.LibraryFragment;
 import com.example.project3.fragment.SettingFragment;
 import com.example.project3.fragment.libraryfragment.MyPlaylistFragment;
 import com.example.project3.helper.Dialog;
+import com.example.project3.notifservice.NotificationActionService;
 import com.example.project3.utils.MusicService;
 import com.example.project3.utils.RealmHelper;
 import com.example.project3.utils.Tools;
@@ -41,6 +50,7 @@ import com.skydoves.powermenu.MenuAnimation;
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
 
+import static com.example.project3.utils.Static.LOCALINTENTFILTER;
 import static com.example.project3.utils.Static.listfav;
 import static com.example.project3.utils.MusicService.currentsongModel;
 
@@ -63,12 +73,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         initToolbar();
         initbottomnavigation();
         getdblist();
         loadFragment(HomeFragment.newInstance("", ""), getString(R.string.app_name),false);
         setViewminiplayer();
+
+
+
+
 
     }
 
@@ -163,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-        }, new IntentFilter("musicplayer"));
+        }, new IntentFilter(LOCALINTENTFILTER));
 
 
 
@@ -209,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void pause (){
         play.setImageResource(R.drawable.ic_playhome);
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "pause");
         LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
     }
@@ -217,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
     public void resume (){
 
         play.setImageResource(R.drawable.ic_pausehhome);
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "resume");
         LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
     }

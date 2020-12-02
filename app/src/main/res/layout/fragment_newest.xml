@@ -59,7 +59,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginTop="-23sp"
-                    android:layout_below="@+id/boxtitle"
+                    android:layout_below="@+id/banner_container"
                     android:id="@+id/rv"
                     android:layout_width="match_parent"
                     android:layout_height="600sp"
@@ -68,13 +68,24 @@
                     android:overScrollMode="always"
                     android:nestedScrollingEnabled="false" />
 
+
+                <LinearLayout
+                    android:layout_below="@id/boxtitle"
+                    android:id="@+id/banner_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    />
+
                 <LinearLayout
                     android:id="@+id/boxtitle"
-                    android:layout_marginLeft="30sp"
+                    android:layout_marginLeft="50sp"
                     android:layout_marginRight="30sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+
 
                     <TextView
                         android:id="@+id/albumname"
@@ -111,6 +122,9 @@
                         android:layout_marginTop="8sp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_buttonrandom" />
+
+
+
                 </LinearLayout>
 
 

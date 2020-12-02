@@ -2,13 +2,17 @@ package com.example.project3;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -21,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.project3.fragment.HomeFragment;
 import com.example.project3.helper.Dialog;
+import com.example.project3.notifservice.CreateNotification;
 import com.example.project3.playerfragment.HomePlayerFragment;
 import com.example.project3.utils.MusicService;
 import com.skydoves.powermenu.MenuAnimation;
@@ -35,6 +40,8 @@ public class PlayerActivity extends AppCompatActivity {
     ActionBar actionBar;
     MenuItem setting;
     Menu mymenu;
+    NotificationManager notificationManager;
+
     public static int playerpos;
     MenuInflater inflater;
     @Override
@@ -52,7 +59,9 @@ public class PlayerActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         loadFragment(HomePlayerFragment.newInstance("",""),"");
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            createChannel();
+        }
     }
     private void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
@@ -80,6 +89,18 @@ public class PlayerActivity extends AppCompatActivity {
         setting.setVisible(true);
         return true;
     }
+
+    private void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CreateNotification.CHANNEL_ID,
+                    "Music App", NotificationManager.IMPORTANCE_LOW);
+            notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null){
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem newitem) {
 

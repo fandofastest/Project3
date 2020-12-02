@@ -32,6 +32,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+import static com.example.project3.utils.Static.LOCALINTENTFILTER;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link LirikFragment#newInstance} factory method to
@@ -121,7 +123,7 @@ public class LirikFragment extends DialogFragment {
             @Override
             public void onPlay(long time, String content) {
                 int currentseek = (int) time;
-                Intent intent = new Intent("musicplayer");
+                Intent intent = new Intent(LOCALINTENTFILTER);
                 intent.putExtra("status", "seek");
                 intent.putExtra("seektime",currentseek);
                 LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
@@ -142,7 +144,7 @@ public class LirikFragment extends DialogFragment {
                     }
                 }
             }
-        }, new IntentFilter("musicplayer"));
+        }, new IntentFilter(LOCALINTENTFILTER));
 
     }
     public void updatelirik(){
@@ -163,7 +165,7 @@ public class LirikFragment extends DialogFragment {
     };
 
     private void updateTimerAndSeekbar() {
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "getduration");
         LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
         updatelirik();

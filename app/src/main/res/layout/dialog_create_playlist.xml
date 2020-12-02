@@ -36,14 +36,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:background="@color/maincolour"
+        android:layout_below="@+id/inputplaylist"
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        />
+
     <LinearLayout
         android:paddingTop="30sp"
         android:background="@color/maincolour"
         android:paddingBottom="20sp"
         android:gravity="right"
-        android:layout_below="@+id/inputplaylist"
+        android:layout_below="@+id/banner_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel_action"
             android:layout_marginLeft="10sp"

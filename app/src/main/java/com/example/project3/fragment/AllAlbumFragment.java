@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.amar.library.ui.StickyScrollView;
 import com.amar.library.ui.interfaces.IScrollViewListener;
@@ -20,6 +22,7 @@ import com.example.project3.MainActivity;
 import com.example.project3.R;
 import com.example.project3.adapter.AlbumAdapter;
 import com.example.project3.model.AlbumModel;
+import com.example.project3.utils.Ads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +94,12 @@ public class AllAlbumFragment extends Fragment {
         recyclerView=view.findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(context,2));
         recyclerView.setHasFixedSize(false);
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
         stickyScrollView=view.findViewById(R.id.scrolll);
+
         stickyScrollView.setScrollViewListener(new IScrollViewListener() {
             @Override
             public void onScrollChanged(int i, int i1, int i2, int i3) {

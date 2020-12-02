@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amar.library.ui.StickyScrollView;
@@ -27,6 +29,7 @@ import com.example.project3.fragment.PlaylistDetailFragment;
 import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.MyPlaylistModel;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.RealmHelper;
 import com.example.project3.utils.Static;
 import com.example.project3.utils.Tools;
@@ -175,6 +178,11 @@ public class MyPlaylistDetailFragment extends Fragment {
             }
         });
         getsong();
+
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
 
 
     }

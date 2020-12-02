@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="600sp"
+    android:layout_height="match_parent"
     android:background="@drawable/bg"
     tools:context=".fragment.NewestFragment">
 
@@ -30,7 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <com.amar.library.ui.StickyScrollView
         android:id="@+id/scrolll"
         android:layout_width="match_parent"
@@ -56,6 +55,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginTop="5sp"
+                    android:id="@+id/banner_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp"
+                    android:layout_below="@+id/nosong"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageButton
                     android:id="@+id/play"
@@ -87,12 +97,11 @@
 
 
                 <ImageButton
+                    android:layout_below="@id/banner_container"
                     android:id="@+id/addsong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/nosong"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30sp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_gotoaddsong" />
 

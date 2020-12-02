@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -24,6 +26,7 @@ import com.example.project3.R;
 import com.example.project3.adapter.SongAdapterList;
 import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.Config;
 import com.example.project3.utils.Tools;
 
@@ -106,7 +109,10 @@ public class DiscoverFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
 
-
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
         if (listsearch.size()==0){
             listsearch=listtrending;
         }

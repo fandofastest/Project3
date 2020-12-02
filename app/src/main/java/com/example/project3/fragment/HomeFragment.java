@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,6 +33,7 @@ import com.example.project3.helper.PlayerHelper;
 import com.example.project3.model.AlbumModel;
 import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.Config;
 import com.example.project3.utils.Static;
 
@@ -122,6 +125,11 @@ public class HomeFragment extends Fragment {
         rvrecent=view.findViewById(R.id.recyclerViewrecent);
         rvrecent.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
         rvrecent.setHasFixedSize(true);
+
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
 
         //set data and list adapter
         trendingAdapter = new SongAdapter(context, listtrending);

@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.amar.library.ui.StickyScrollView;
 import com.amar.library.ui.interfaces.IScrollViewListener;
@@ -23,6 +25,7 @@ import com.example.project3.adapter.PlaylistAdapter;
 import com.example.project3.helper.SpacesItemDecoration;
 import com.example.project3.model.AlbumModel;
 import com.example.project3.model.PLaylistModel;
+import com.example.project3.utils.Ads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +98,11 @@ public class AllPlaylistFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(context,2));
         recyclerView.setHasFixedSize(false);
         recyclerView.addItemDecoration(new SpacesItemDecoration(50));
+
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
 
         stickyScrollView=view.findViewById(R.id.scrolll);
         stickyScrollView.setScrollViewListener(new IScrollViewListener() {

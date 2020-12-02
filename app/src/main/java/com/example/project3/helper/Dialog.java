@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ import com.example.project3.adapter.PlaylistAdapter;
 import com.example.project3.model.MyPlaylistModel;
 import com.example.project3.model.PLaylistModel;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.MusicService;
 import com.example.project3.utils.RealmHelper;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -57,6 +59,7 @@ import java.util.Date;
 import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
+import static com.example.project3.utils.Static.LOCALINTENTFILTER;
 import static com.example.project3.utils.Static.listmyplaylist;
 import static io.realm.Realm.getApplicationContext;
 
@@ -125,6 +128,12 @@ public  class Dialog {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+
+
+        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
     }
 
     public static void rateAction(Activity activity) {
@@ -169,11 +178,13 @@ public  class Dialog {
             dialog.dismiss();
             Toast.makeText(context, "Dismiss", Toast.LENGTH_SHORT).show();
         });
-//        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
+        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
         Display display = dialog.getWindow().getWindowManager().getDefaultDisplay();
-//        Ads ads = new Ads(this,false);
-//        ads.ShowBannerAds(bannerlayout,display);
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
         dialog.show();
+
+
         dialog.getWindow().setAttributes(lp);
 
     }
@@ -299,10 +310,10 @@ public  class Dialog {
             }
         });
 
-//        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
+        LinearLayout bannerlayout=dialog.findViewById(R.id.banner_container);
         Display display = dialog.getWindow().getWindowManager().getDefaultDisplay();
-//        Ads ads = new Ads(this,false);
-//        ads.ShowBannerAds(bannerlayout,display);
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
         dialog.show();
         dialog.getWindow().setAttributes(lp);
 
@@ -393,7 +404,7 @@ public  class Dialog {
 
 
 
-                        Intent intent = new Intent("musicplayer");
+                        Intent intent = new Intent(LOCALINTENTFILTER);
                         intent.putExtra("status", "settimer");
                         intent.putExtra("end", millseconds);
 

@@ -17,14 +17,15 @@ import androidx.core.app.NotificationManagerCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-
 import com.example.project3.R;
 import com.example.project3.model.SongModel;
+
 
 public class CreateNotification {
  public  static    Bitmap icon = null;
 
-    public static final String CHANNEL_ID = "musicappnew";
+    public static final String CHANNEL_ID = "1010010010010010001100";
+
     public static final String ACTION_PREVIUOS = "actionprevious";
     public static final String ACTION_PLAY = "actionplay";
     public static final String ACTION_NEXT = "actionnext";
@@ -35,10 +36,8 @@ public class CreateNotification {
     public static void createNotification(Context context, SongModel songModel, int playbutton, int pos, int size){
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
             MediaSessionCompat mediaSessionCompat = new MediaSessionCompat( context, "tag");
-
                 Glide.with(context)
                         .asBitmap()
                         .load(songModel.getImageurl())
@@ -52,11 +51,6 @@ public class CreateNotification {
                             public void onLoadCleared(@Nullable Drawable placeholder) {
                             }
                         });
-
-
-
-
-
             PendingIntent pendingIntentPrevious;
             int drw_previous;
             if (pos == 0){
@@ -94,8 +88,6 @@ public class CreateNotification {
                 drw_next = R.drawable.ic_skip_next_black_24dp;
             }
 
-
-
             //create notification
             notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_music_note)
@@ -108,7 +100,6 @@ public class CreateNotification {
                     .addAction(playbutton, "Play", pendingIntentPlay)
                     .addAction(drw_next, "Next", pendingIntentNext)
                     .setDeleteIntent(pendingIntentClose)
-
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                             .setShowActionsInCompactView(0, 1, 2)
                             .setMediaSession(mediaSessionCompat.getSessionToken()))

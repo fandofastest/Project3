@@ -10,20 +10,30 @@
     tools:context=".fragment.LibraryFragment">
 
     <com.google.android.material.tabs.TabLayout
-        android:background="@android:color/transparent"
-        app:tabInlineLabel="true"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/vp"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/merah"
         app:tabIndicatorFullWidth="false"
+        app:tabInlineLabel="true"
         app:tabSelectedTextColor="@color/merah"
         app:tabTextAppearance="@style/CustomTextAppearanceTab"
         app:tabTextColor="@color/white" />
+
+
+    <LinearLayout
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/vp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp"
@@ -33,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/banner_container" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

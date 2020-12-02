@@ -14,14 +14,17 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.project3.R;
 import com.example.project3.fragment.libraryfragment.AlbumFragment;
 import com.example.project3.fragment.libraryfragment.FavoriteFragment;
 import com.example.project3.fragment.libraryfragment.MyPlaylistFragment;
+import com.example.project3.utils.Ads;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -74,6 +77,7 @@ public class LibraryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        context=getContext();
     }
 
     @Override
@@ -87,6 +91,14 @@ public class LibraryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
+
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
+
+
+
     }
 
     private void init(View view) {
@@ -94,6 +106,8 @@ public class LibraryFragment extends Fragment {
         viewPager2 = view.findViewById(R.id.vp);
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager2.setAdapter(new ViewPagerFragmentAdapter(getActivity()));
+
+
 
         // attaching tab mediator
         new TabLayoutMediator(tabLayout, viewPager2,

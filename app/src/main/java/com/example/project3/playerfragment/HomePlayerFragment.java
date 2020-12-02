@@ -14,17 +14,20 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.project3.PlayerActivity;
 import com.example.project3.R;
 import com.example.project3.helper.Dialog;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.MusicService;
 import com.example.project3.utils.MusicUtills;
 import com.example.project3.utils.RealmHelper;
@@ -36,6 +39,7 @@ import com.warkiz.widget.SeekParams;
 
 import static com.example.project3.utils.MusicService.ctitle;
 import static com.example.project3.utils.MusicService.currentsongModel;
+import static com.example.project3.utils.Static.LOCALINTENTFILTER;
 
 
 /**
@@ -141,7 +145,7 @@ public class HomePlayerFragment extends Fragment {
                     double currentseek = ((double) seekParams.progress/(double)MusicUtills.MAX_PROGRESS);
                     int totaldura= (int) MusicService.totalduration;
                     int seek= (int) (totaldura*currentseek);
-                    Intent intent = new Intent("musicplayer");
+                    Intent intent = new Intent(LOCALINTENTFILTER);
                     intent.putExtra("status", "seek");
                     intent.putExtra("seektime",seek);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
@@ -159,6 +163,10 @@ public class HomePlayerFragment extends Fragment {
             }
         });
 
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(context,false);
+        ads.ShowBannerAds(bannerlayout,display);
 
     }
 
@@ -195,7 +203,7 @@ public class HomePlayerFragment extends Fragment {
     };
 
     private void updateTimerAndSeekbar() {
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "getduration");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         curdura.setText(utills.milliSecondsToTimer(MusicService.currentduraiton));
@@ -209,7 +217,7 @@ public class HomePlayerFragment extends Fragment {
 
     public void pause (){
         play.setImageResource(R.drawable.ic_playicon);
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "pause");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
@@ -217,7 +225,7 @@ public class HomePlayerFragment extends Fragment {
     public void resume (){
 
         play.setImageResource(R.drawable.ic_pause);
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "resume");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         mHandler.post(mUpdateTimeTask);
@@ -328,7 +336,7 @@ public class HomePlayerFragment extends Fragment {
         play.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "next");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         mHandler.post(mUpdateTimeTask);
@@ -341,7 +349,7 @@ public class HomePlayerFragment extends Fragment {
         artist.setText("");
         play.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
-        Intent intent = new Intent("musicplayer");
+        Intent intent = new Intent(LOCALINTENTFILTER);
         intent.putExtra("status", "prev");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         mHandler.post(mUpdateTimeTask);
@@ -374,7 +382,7 @@ public class HomePlayerFragment extends Fragment {
                 }
 
             }
-        }, new IntentFilter("musicplayer"));
+        }, new IntentFilter(LOCALINTENTFILTER));
 
     }
 }

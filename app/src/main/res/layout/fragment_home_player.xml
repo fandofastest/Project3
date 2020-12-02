@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="0dp"
-        android:layout_height="370sp"
+        android:layout_height="320sp"
         android:scaleType="centerCrop"
         android:src="@drawable/bgplayer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,8 +50,8 @@
         android:id="@+id/imageFilterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:src="@drawable/ic_backcontrol"
+        app:layout_constraintBottom_toTopOf="@+id/banner_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/artistnameplayer" />
@@ -95,14 +95,13 @@
         android:id="@+id/playbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_playicon"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/seekbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFilterButton" />
+        app:layout_constraintTop_toBottomOf="@+id/banner_container" />
 
     <ImageButton
         android:id="@+id/shuffle"
@@ -148,7 +147,16 @@
         app:layout_constraintStart_toEndOf="@+id/next"
         app:layout_constraintTop_toTopOf="@+id/playbutton" />
 
-
+    <LinearLayout
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageFilterButton" />
     <com.warkiz.widget.IndicatorSeekBar
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
