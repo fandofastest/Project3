@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.helper.Dialog;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.RealmHelper;
 import com.example.project3.utils.Tools;
 import com.skydoves.powermenu.MenuAnimation;
@@ -272,7 +273,14 @@ public class SongAdapterList extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                         }
                         else {
-                            mOnItemClickListener.onItemClick(position);
+                            Ads ads = new Ads(ctx,true);
+                            ads.setCustomObjectListener(new Ads.MyCustomObjectListener() {
+                                @Override
+                                public void onAdsfinish() {
+                                    mOnItemClickListener.onItemClick(position);
+
+                                }
+                            });
 
                         }
 

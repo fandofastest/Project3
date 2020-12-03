@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Ads;
 
 import org.w3c.dom.Text;
 
@@ -140,7 +141,14 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     notifyDataSetChanged();
 
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(position);
+                        Ads ads = new Ads(ctx,true);
+                        ads.setCustomObjectListener(new Ads.MyCustomObjectListener() {
+                            @Override
+                            public void onAdsfinish() {
+                                mOnItemClickListener.onItemClick(position);
+
+                            }
+                        });
 
                     }
                 }

@@ -27,15 +27,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:fontFamily="@font/nsregular"
         android:text="ARtist"
         android:textColor="@color/textgrey"
         android:textSize="11sp"
-        app:layout_constraintBottom_toTopOf="@+id/likikview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/liriktitle" />
+
+    <LinearLayout
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nosong"
+        app:layout_constraintTop_toBottomOf="@+id/lirikartist" />
 
 
     <com.lauzy.freedom.library.LrcView
@@ -51,7 +56,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lirikartist"
+        app:layout_constraintTop_toBottomOf="@+id/banner_container"
         app:lrcCurrentTextColor="@color/merah"
         app:lrcNormalTextColor="#FFFFFF"
         app:lrcTextSize="14sp"

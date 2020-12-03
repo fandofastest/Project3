@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.model.PLaylistModel;
+import com.example.project3.utils.Ads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +92,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View view) {
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(obj,position);
+                        Ads ads = new Ads(ctx,true);
+                        ads.setCustomObjectListener(new Ads.MyCustomObjectListener() {
+                            @Override
+                            public void onAdsfinish() {
+                                mOnItemClickListener.onItemClick(obj,position);
+
+                            }
+                        });
                     }
                 }
             });

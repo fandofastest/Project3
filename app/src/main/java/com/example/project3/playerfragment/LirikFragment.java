@@ -15,14 +15,17 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.os.Handler;
 import android.os.StrictMode;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.project3.R;
 import com.example.project3.helper.LyricHelper;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.MusicService;
 import com.lauzy.freedom.library.Lrc;
 import com.lauzy.freedom.library.LrcView;
@@ -103,6 +106,10 @@ public class LirikFragment extends DialogFragment {
         mLrcView=view.findViewById(R.id.likikview);
         showing=true;
         loadlirik();
+        LinearLayout bannerlayout=view.findViewById(R.id.banner_container);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Ads ads = new Ads(getContext(),false);
+        ads.ShowBannerAds(bannerlayout,display);
     }
     public void loadlirik(){
         title.setText(MusicService.currentsongModel.getTitle());

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project3.R;
 import com.example.project3.model.MyPlaylistModel;
 import com.example.project3.model.SongModel;
+import com.example.project3.utils.Ads;
 import com.example.project3.utils.RealmHelper;
 import com.skydoves.powermenu.MenuAnimation;
 import com.skydoves.powermenu.PowerMenu;
@@ -101,7 +102,14 @@ public class MyPlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             view.itemlayout.setOnClickListener(view1 -> {
                 if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(obj,position);
+                    Ads ads = new Ads(ctx,true);
+                    ads.setCustomObjectListener(new Ads.MyCustomObjectListener() {
+                        @Override
+                        public void onAdsfinish() {
+                            mOnItemClickListener.onItemClick(obj,position);
+
+                        }
+                    });
 
                 }
                 notifyDataSetChanged();
