@@ -24,8 +24,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.project3.MainActivity;
 import com.example.project3.PlayerActivity;
 import com.example.project3.R;
+import com.example.project3.fragment.AlbumDetailFragment;
 import com.example.project3.helper.Dialog;
 import com.example.project3.utils.Ads;
 import com.example.project3.utils.MusicService;
@@ -271,9 +273,13 @@ public class HomePlayerFragment extends Fragment {
         buttonlirik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newFragment = LirikFragment.newInstance("Lirik","coba");
-                newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialoglirikFragmentTheme);
-                newFragment.show(getFragmentManager(),"lirik");
+
+                ((PlayerActivity) getActivity()).loadFragment(LirikFragment.newInstance("",""),"");
+
+//
+//                newFragment = LirikFragment.newInstance("Lirik","coba");
+//                newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialoglirikFragmentTheme);
+//                newFragment.show(getFragmentManager(),"lirik");
             }
         });
 
