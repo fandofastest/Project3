@@ -23,9 +23,9 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 
 import com.db.chart.Tools;
-import com.db.williamchart.R;
 import com.db.chart.model.ChartEntry;
 import com.db.chart.model.ChartSet;
+import com.db.fandochart.R;
 
 /**
  * Class responsible to control vertical measures, positions, yadda yadda. 

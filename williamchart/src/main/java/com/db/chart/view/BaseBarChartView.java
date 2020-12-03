@@ -28,7 +28,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 
 import com.db.chart.model.ChartSet;
-import com.db.williamchart.R;
+import com.db.fandochart.R;
 
 import java.util.ArrayList;
 

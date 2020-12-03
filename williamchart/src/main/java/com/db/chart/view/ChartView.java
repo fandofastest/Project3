@@ -19,12 +19,12 @@ package com.db.chart.view;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.db.williamchart.R;
 import com.db.chart.listener.OnEntryClickListener;
 import com.db.chart.model.ChartEntry;
 import com.db.chart.model.ChartSet;
 import com.db.chart.view.animation.Animation;
 import com.db.chart.view.animation.style.BaseStyleAnimation;
+import com.db.fandochart.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
